@@ -10,874 +10,256 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body {
-  font-family: 'Nunito Sans', sans-serif;
-  background: #f0eeff;
-  min-height: 100vh;
-}
+body { font-family: 'Nunito Sans', sans-serif; background: #f0eeff; min-height: 100vh; }
 
-/* ══════════════════════════════════
-   DESKTOP LAYOUT
-══════════════════════════════════ */
-.layout {
-  display: flex;
-  min-height: 100vh;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 20px;
-  gap: 20px;
-  align-items: flex-start;
-}
+.layout { display: flex; min-height: 100vh; max-width: 1200px; margin: 0 auto; padding: 24px 20px; gap: 20px; align-items: flex-start; }
+.sidebar { width: 360px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px; }
+.main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+@media (max-width: 720px) { .layout { flex-direction: column; padding: 12px; gap: 12px; } .sidebar { width: 100%; } }
 
-/* Left sidebar — fixed width, natural height */
-.sidebar {
-  width: 360px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.sidebar-spacer { display: none; }
+.panel { background: white; border-radius: 22px; border: 1px solid rgba(0,0,0,0.06); overflow: hidden; }
 
-/* Main column */
-.main {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* Mobile: stack */
-@media (max-width: 720px) {
-  .layout { flex-direction: column; padding: 12px; gap: 12px; }
-  .sidebar { width: 100%; position: static; max-height: none; }
-}
-
-/* ══════════════════════════════════
-   SHARED CARD BASE
-══════════════════════════════════ */
-.panel {
-  background: white;
-  border-radius: 22px;
-  border: 1px solid rgba(0,0,0,0.06);
-  overflow: hidden;
-}
-
-/* ══════════════════════════════════
-   TOPBAR (mobile only)
-══════════════════════════════════ */
-.topbar {
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-  padding: 4px 0 8px;
-}
+.topbar { display: none; align-items: center; justify-content: space-between; padding: 4px 0 8px; }
 @media (max-width: 720px) { .topbar { display: flex; } }
 
 .brand { display: flex; align-items: center; gap: 8px; }
-.brand-icon {
-  width: 34px; height: 34px;
-  background: linear-gradient(135deg, #ff6b9d, #a855f7);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-}
-.brand-name {
-  font-family: 'Nunito', sans-serif;
-  font-size: 22px; font-weight: 900;
-  background: linear-gradient(135deg, #ff6b9d, #a855f7);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.live-chip {
-  display: flex; align-items: center; gap: 5px;
-  font-size: 11px; font-weight: 700; color: #666;
-  background: white; padding: 5px 10px;
-  border-radius: 20px; border: 1px solid rgba(0,0,0,0.08);
-}
-.live-dot {
-  width: 7px; height: 7px; background: #22c55e;
-  border-radius: 50%; animation: blink 2s infinite;
-}
+.brand-icon { width: 34px; height: 34px; background: linear-gradient(135deg, #ff6b9d, #a855f7); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.brand-name { font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; background: linear-gradient(135deg, #ff6b9d, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.live-chip { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; color: #666; background: white; padding: 5px 10px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.08); }
+.live-dot { width: 7px; height: 7px; background: #22c55e; border-radius: 50%; animation: blink 2s infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
-/* ══════════════════════════════════
-   SIDEBAR BRAND (desktop)
-══════════════════════════════════ */
-.sidebar-brand {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 20px;
-}
+.sidebar-brand { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; }
 @media (max-width: 720px) { .sidebar-brand { display: none; } }
-
 .sidebar-brand .brand-name { font-size: 26px; }
 
-/* ══════════════════════════════════
-   HERO STATS (sidebar)
-══════════════════════════════════ */
-.hero {
-  background: linear-gradient(135deg, #ff6b9d 0%, #a855f7 50%, #3b82f6 100%);
-  border-radius: 22px;
-  padding: 18px 20px;
-  color: white; position: relative; overflow: hidden;
-}
-.hero::before {
-  content: ''; position: absolute; top: -30px; right: -20px;
-  width: 110px; height: 110px;
-  background: rgba(255,255,255,0.08); border-radius: 50%;
-}
-.hero-label {
-  font-size: 11px; font-weight: 700; opacity: 0.75;
-  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px;
-}
-.hero-title {
-  font-family: 'Nunito', sans-serif;
-  font-size: 17px; font-weight: 900; margin-bottom: 14px;
-}
+.hero { background: linear-gradient(135deg, #ff6b9d 0%, #a855f7 50%, #3b82f6 100%); border-radius: 22px; padding: 18px 20px; color: white; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -30px; right: -20px; width: 110px; height: 110px; background: rgba(255,255,255,0.08); border-radius: 50%; }
+.hero-label { font-size: 11px; font-weight: 700; opacity: 0.75; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
+.hero-title { font-family: 'Nunito', sans-serif; font-size: 17px; font-weight: 900; margin-bottom: 14px; }
 .hero-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; width: 100%; }
-.hero-stat {
-  background: rgba(255,255,255,0.18); border-radius: 12px; padding: 12px 10px; min-width: 0;
-}
-.hero-stat-val {
-  font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; white-space: nowrap;
-}
+.hero-stat { background: rgba(255,255,255,0.18); border-radius: 12px; padding: 12px 10px; min-width: 0; }
+.hero-stat-val { font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; white-space: nowrap; }
 .hero-stat-label { font-size: 10px; opacity: 0.8; font-weight: 600; margin-top: 2px; }
 
-/* ══════════════════════════════════
-   DANGER ALERT (sidebar)
-══════════════════════════════════ */
-.danger-alert {
-  background: rgba(239,68,68,0.07);
-  border: 1px solid rgba(239,68,68,0.22);
-  border-radius: 18px; padding: 14px 16px;
-  display: flex; gap: 10px; align-items: flex-start;
-}
+.danger-alert { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.22); border-radius: 18px; padding: 14px 16px; display: flex; gap: 10px; align-items: flex-start; }
 .alert-emoji { font-size: 20px; flex-shrink: 0; }
-.alert-title {
-  font-family: 'Nunito', sans-serif;
-  font-size: 12px; font-weight: 800; color: #ef4444; margin-bottom: 3px;
-}
+.alert-title { font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 800; color: #ef4444; margin-bottom: 3px; }
 .alert-text { font-size: 11px; color: #666; line-height: 1.5; }
 .alert-text strong { color: #ef4444; font-weight: 700; }
 
-/* ══════════════════════════════════
-   VOTING WIDGET
-══════════════════════════════════ */
+/* ══ EVENTS ══ */
+.events-list { display: flex; flex-direction: column; gap: 8px; }
+.event-row { display: flex; align-items: flex-start; gap: 11px; border-radius: 13px; padding: 11px 13px; border: 1px solid transparent; }
+.event-row.cancelled { background: rgba(239,68,68,0.04); border-color: rgba(239,68,68,0.15); }
+.event-row.happened  { background: rgba(34,197,94,0.05);  border-color: rgba(34,197,94,0.18); }
+.event-emoji { font-size: 22px; flex-shrink: 0; width: 30px; text-align: center; margin-top: 1px; }
+.event-body { flex: 1; min-width: 0; }
+.event-name-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 2px; }
+.event-name { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; color: #1a1a2e; }
+.event-status-pill { font-size: 8px; font-weight: 800; padding: 2px 7px; border-radius: 6px; letter-spacing: 0.06em; text-transform: uppercase; flex-shrink: 0; }
+.pill-cancelled { background: rgba(239,68,68,0.12); color: #c0392b; }
+.pill-happened  { background: rgba(34,197,94,0.12);  color: #166534; }
+.event-date { font-size: 11px; color: #888; font-weight: 600; }
+.event-reason { font-size: 11px; color: #aaa; margin-top: 3px; font-style: italic; }
+
+/* ══ VOTING ══ */
 .vote-panel { padding: 18px 18px 16px; }
-.vote-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 12px; gap: 8px;
-}
-.vote-title {
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px; font-weight: 800; color: #1a1a2e;
-}
-.vote-badge {
-  font-size: 9px; font-weight: 800;
-  background: linear-gradient(135deg,#ff6b9d,#a855f7);
-  color: white; padding: 3px 8px; border-radius: 10px;
-  letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
-}
+.vote-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; }
+.vote-title { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; color: #1a1a2e; }
+.vote-badge { font-size: 9px; font-weight: 800; background: linear-gradient(135deg,#ff6b9d,#a855f7); color: white; padding: 3px 8px; border-radius: 10px; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
 .vote-question { font-size: 13px; color: #333; font-weight: 700; margin-bottom: 12px; line-height: 1.5; }
 .vote-options { display: flex; flex-direction: column; gap: 7px; }
-.vote-opt {
-  display: flex; align-items: center;
-  background: #f8f5ff; border-radius: 12px; padding: 9px 12px;
-  cursor: pointer; border: 1.5px solid transparent;
-  transition: all 0.15s; gap: 8px; min-width: 0;
-}
+.vote-opt { display: flex; align-items: center; background: #f8f5ff; border-radius: 12px; padding: 9px 12px; cursor: pointer; border: 1.5px solid transparent; transition: all 0.15s; gap: 8px; min-width: 0; }
 .vote-opt:hover { border-color: #a855f7; background: #f0ebff; }
 .vote-opt.voted { border-color: #a855f7; background: #ede9fe; }
 .vote-opt-label { font-size: 12px; font-weight: 700; color: #333; flex: 1; min-width: 0; line-height: 1.4; }
-.vote-bar-wrap {
-  flex: 0 0 60px;
-  height: 5px; background: #e0d7ff; border-radius: 3px; overflow: hidden;
-}
+.vote-bar-wrap { flex: 0 0 60px; height: 5px; background: #e0d7ff; border-radius: 3px; overflow: hidden; }
 .vote-bar { height: 100%; border-radius: 3px; background: linear-gradient(90deg,#ff6b9d,#a855f7); transition: width 0.5s ease; }
 .vote-pct { font-size: 11px; font-weight: 800; color: #a855f7; min-width: 28px; text-align: right; flex-shrink: 0; }
-.vote-nav {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-top: 13px;
-}
-.vote-nav-btn {
-  font-size: 11px; font-weight: 800;
-  background: none; border: 1px solid rgba(0,0,0,0.12);
-  border-radius: 20px; padding: 5px 12px; cursor: pointer;
-  color: #555; transition: all 0.15s; font-family: 'Nunito Sans',sans-serif;
-}
+.vote-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 13px; }
+.vote-nav-btn { font-size: 11px; font-weight: 800; background: none; border: 1px solid rgba(0,0,0,0.12); border-radius: 20px; padding: 5px 12px; cursor: pointer; color: #555; transition: all 0.15s; font-family: 'Nunito Sans',sans-serif; }
 .vote-nav-btn:hover { background: #f0ebff; border-color: #a855f7; color: #a855f7; }
 .vote-progress { font-size: 10px; color: #aaa; font-weight: 700; }
 
-/* ══════════════════════════════════
-   LEADERBOARD SECTION HEADER
-══════════════════════════════════ */
-.lb-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 20px 12px;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  position: sticky; top: 0; background: white; z-index: 5;
-  border-radius: 22px 22px 0 0;
-}
-.lb-title {
-  font-family: 'Nunito', sans-serif;
-  font-size: 16px; font-weight: 800; color: #1a1a2e;
-}
+/* ══ LEADERBOARD ══ */
+.lb-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 12px; border-bottom: 1px solid rgba(0,0,0,0.05); position: sticky; top: 0; background: white; z-index: 5; border-radius: 22px 22px 0 0; }
+.lb-title { font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 800; color: #1a1a2e; }
 .sort-btns { display: flex; gap: 6px; }
-.sort-btn {
-  font-size: 10px; font-weight: 700;
-  padding: 4px 11px; border-radius: 20px;
-  border: 1px solid rgba(0,0,0,0.12);
-  background: none; color: #777;
-  cursor: pointer; font-family: 'Nunito Sans', sans-serif;
-  transition: all 0.15s;
-}
+.sort-btn { font-size: 10px; font-weight: 700; padding: 4px 11px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.12); background: none; color: #777; cursor: pointer; font-family: 'Nunito Sans', sans-serif; transition: all 0.15s; }
 .sort-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
 
-/* ══════════════════════════════════
-   MEMBER CARDS
-══════════════════════════════════ */
+/* ══ CARDS ══ */
 .cards { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 7px; }
-
-.card {
-  background: #fafafa;
-  border-radius: 16px; padding: 12px 14px;
-  border: 1px solid rgba(0,0,0,0.05);
-  display: grid;
-  grid-template-columns: 44px 1fr auto;
-  gap: 0 11px; align-items: center;
-  cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s;
-}
+.card { background: #fafafa; border-radius: 16px; padding: 12px 14px; border: 1px solid rgba(0,0,0,0.05); display: grid; grid-template-columns: 44px 1fr auto; gap: 0 11px; align-items: center; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
 .card:hover { transform: translateY(-1px); box-shadow: 0 5px 20px rgba(0,0,0,0.07); }
 .card.danger-card { background: rgba(239,68,68,0.05); border-color: rgba(239,68,68,0.2); }
 .card.warn-card { background: rgba(245,158,11,0.05); border-color: rgba(245,158,11,0.18); }
-.card.you-card {
-  background: linear-gradient(135deg,rgba(255,107,157,0.06),rgba(168,85,247,0.06));
-  border: 1.5px solid rgba(168,85,247,0.28);
-}
-
-.avatar {
-  width: 44px; height: 44px; border-radius: 13px;
-  object-fit: cover; flex-shrink: 0; display: block;
-}
-.avatar-fallback {
-  width: 44px; height: 44px; border-radius: 13px;
-  background: linear-gradient(135deg,#a855f7,#ff6b9d);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Nunito',sans-serif; font-size: 17px; font-weight: 900;
-  color: white; flex-shrink: 0;
-}
-
+.card.you-card { background: linear-gradient(135deg,rgba(255,107,157,0.06),rgba(168,85,247,0.06)); border: 1.5px solid rgba(168,85,247,0.28); }
+.avatar { width: 44px; height: 44px; border-radius: 13px; object-fit: cover; flex-shrink: 0; display: block; }
+.avatar-fallback { width: 44px; height: 44px; border-radius: 13px; background: linear-gradient(135deg,#a855f7,#ff6b9d); display: flex; align-items: center; justify-content: center; font-family: 'Nunito',sans-serif; font-size: 17px; font-weight: 900; color: white; flex-shrink: 0; }
 .card-main { min-width: 0; }
-.card-name-row {
-  display: flex; align-items: center; gap: 5px;
-  flex-wrap: wrap; margin-bottom: 4px;
-}
-.card-name {
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px; font-weight: 800; color: #1a1a2e;
-}
+.card-name-row { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; margin-bottom: 4px; }
+.card-name { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; color: #1a1a2e; }
 .flag { font-size: 13px; }
-.tag {
-  font-size: 8px; font-weight: 800;
-  padding: 2px 6px; border-radius: 7px;
-  letter-spacing: 0.04em; flex-shrink: 0;
-}
+.tag { font-size: 8px; font-weight: 800; padding: 2px 6px; border-radius: 7px; letter-spacing: 0.04em; flex-shrink: 0; }
 .you-tag { background: linear-gradient(135deg,#ff6b9d,#a855f7); color: white; }
 .danger-tag { background: #ef4444; color: white; }
 .warn-tag { background: #f59e0b; color: white; }
 .new-tag { background: linear-gradient(135deg,#22c55e,#16a34a); color: white; }
-.vibe-tag {
-  font-size: 8px; font-weight: 700;
-  padding: 2px 6px; border-radius: 7px;
-  background: #f0ebff; color: #7c3aed;
-}
-
+.vibe-tag { font-size: 8px; font-weight: 700; padding: 2px 6px; border-radius: 7px; background: #f0ebff; color: #7c3aed; }
 .mini-stats { display: flex; gap: 9px; flex-wrap: wrap; }
 .mini-stat { display: flex; align-items: center; gap: 2px; font-size: 10px; color: #888; font-weight: 600; }
-
 .score-col { text-align: right; flex-shrink: 0; }
-.score-num {
-  font-family: 'Nunito', sans-serif;
-  font-size: 22px; font-weight: 900; line-height: 1;
-}
+.score-num { font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; line-height: 1; }
 .score-label { font-size: 9px; color: #bbb; font-weight: 600; margin-top: 1px; text-transform: uppercase; letter-spacing: 0.05em; }
-.score-elite { color: #c8a92a; }
-.score-good { color: #22c55e; }
-.score-warn { color: #f59e0b; }
-.score-danger { color: #ef4444; }
-
-.score-bar-wrap {
-  grid-column: 1 / -1; margin-top: 8px;
-  height: 3px; background: #f0f0f0; border-radius: 2px; overflow: hidden;
-}
+.score-elite { color: #c8a92a; } .score-good { color: #22c55e; } .score-warn { color: #f59e0b; } .score-danger { color: #ef4444; }
+.score-bar-wrap { grid-column: 1 / -1; margin-top: 8px; height: 3px; background: #f0f0f0; border-radius: 2px; overflow: hidden; }
 .score-bar { height: 100%; border-radius: 2px; transition: width 0.6s; }
-
-/* ══════════════════════════════════
-   ZONE DIVIDERS
-══════════════════════════════════ */
 .zone-divider { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
-.div-line {
-  flex: 1; height: 1.5px;
-  background: repeating-linear-gradient(90deg, currentColor 0, currentColor 5px, transparent 5px, transparent 10px);
-  opacity: 0.4;
-}
-.div-label {
-  font-size: 9px; font-weight: 800; padding: 3px 9px;
-  border-radius: 20px; white-space: nowrap;
-  letter-spacing: 0.05em; text-transform: uppercase;
-}
+.div-line { flex: 1; height: 1.5px; background: repeating-linear-gradient(90deg, currentColor 0, currentColor 5px, transparent 5px, transparent 10px); opacity: 0.4; }
+.div-label { font-size: 9px; font-weight: 800; padding: 3px 9px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.05em; text-transform: uppercase; }
 .div-danger { color: #ef4444; border: 1px solid rgba(239,68,68,0.28); background: #fff5f5; }
 .div-warn { color: #f59e0b; border: 1px solid rgba(245,158,11,0.22); background: #fffbf0; }
 
-/* ══════════════════════════════════
-   MVP CARD
-══════════════════════════════════ */
-.mvp-card {
-  border-radius: 22px; padding: 20px;
-  background: linear-gradient(135deg, #fff9e6 0%, #fef3c7 100%);
-  border: 1.5px solid rgba(200,169,42,0.3);
-  position: relative; overflow: hidden;
-}
-.mvp-card::before {
-  content: '👑';
-  position: absolute; right: -6px; bottom: -10px;
-  font-size: 80px; opacity: 0.12; line-height: 1;
-}
-.mvp-header {
-  display: flex; align-items: center; gap: 6px; margin-bottom: 14px;
-}
-.mvp-label {
-  font-family: 'Nunito', sans-serif;
-  font-size: 10px; font-weight: 800;
-  letter-spacing: 0.1em; text-transform: uppercase; color: #92400e;
-}
+/* ══ MVP ══ */
+.mvp-card { border-radius: 22px; padding: 20px; background: linear-gradient(135deg, #fff9e6 0%, #fef3c7 100%); border: 1.5px solid rgba(200,169,42,0.3); position: relative; overflow: hidden; }
+.mvp-card::before { content: '👑'; position: absolute; right: -6px; bottom: -10px; font-size: 80px; opacity: 0.12; line-height: 1; }
+.mvp-header { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; }
+.mvp-label { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #92400e; }
 .mvp-week { font-size: 10px; color: #b45309; opacity: 0.7; font-weight: 600; }
 .mvp-body { display: flex; align-items: center; gap: 14px; }
-.mvp-avatar {
-  width: 56px; height: 56px; border-radius: 16px;
-  object-fit: cover; flex-shrink: 0;
-  border: 2px solid rgba(200,169,42,0.4);
-}
-.mvp-avatar-fallback {
-  width: 56px; height: 56px; border-radius: 16px;
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900;
-  color: white; flex-shrink: 0;
-}
-.mvp-name {
-  font-family: 'Nunito', sans-serif;
-  font-size: 20px; font-weight: 900; color: #78350f; margin-bottom: 3px;
-}
+.mvp-avatar { width: 56px; height: 56px; border-radius: 16px; object-fit: cover; flex-shrink: 0; border: 2px solid rgba(200,169,42,0.4); }
+.mvp-avatar-fallback { width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, #f59e0b, #d97706); display: flex; align-items: center; justify-content: center; font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; color: white; flex-shrink: 0; }
+.mvp-name { font-family: 'Nunito', sans-serif; font-size: 20px; font-weight: 900; color: #78350f; margin-bottom: 3px; }
 .mvp-reason { font-size: 12px; color: #92400e; font-weight: 600; line-height: 1.5; }
 .mvp-stats { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
-.mvp-stat {
-  background: rgba(245,158,11,0.15); border-radius: 8px;
-  padding: 4px 9px; font-size: 11px; font-weight: 700; color: #92400e;
-}
+.mvp-stat { background: rgba(245,158,11,0.15); border-radius: 8px; padding: 4px 9px; font-size: 11px; font-weight: 700; color: #92400e; }
 
-/* ══════════════════════════════════
-   GRAVEYARD
-══════════════════════════════════ */
-.graveyard {
-  background: #1e1b2e;
-  border-radius: 22px; padding: 18px 20px;
-  color: white; position: relative;
-}
-.graveyard-sky {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(100,60,200,0.25) 0%, transparent 70%);
-  pointer-events: none;
-}
-.graveyard-moon {
-  position: absolute; top: 14px; right: 20px;
-  width: 30px; height: 30px;
-  background: rgba(255,255,220,0.15); border-radius: 50%;
-  box-shadow: 0 0 20px rgba(255,255,200,0.12);
-}
-.gy-title {
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px; font-weight: 900;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  margin-bottom: 3px; position: relative;
-}
+/* ══ GRAVEYARD ══ */
+.graveyard { background: #1e1b2e; border-radius: 22px; padding: 18px 20px; color: white; position: relative; }
+.graveyard-sky { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(100,60,200,0.25) 0%, transparent 70%); pointer-events: none; }
+.graveyard-moon { position: absolute; top: 14px; right: 20px; width: 30px; height: 30px; background: rgba(255,255,220,0.15); border-radius: 50%; box-shadow: 0 0 20px rgba(255,255,200,0.12); }
+.gy-title { font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 3px; position: relative; }
 .gy-sub { font-size: 11px; opacity: 0.4; margin-bottom: 16px; position: relative; }
 .gy-grid { display: flex; flex-wrap: wrap; gap: 8px; position: relative; }
-
-.grave-chip {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 14px; padding: 10px 12px;
-  display: flex; flex-direction: column; align-items: center;
-  gap: 5px; min-width: 76px;
-  transition: background 0.15s;
-}
+.grave-chip { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 76px; transition: background 0.15s; }
 .grave-chip:hover { background: rgba(255,255,255,0.1); }
-.grave-skull { font-size: 22px; }
-.grave-av-wrap {
-  position: relative; width: 34px; height: 34px;
-}
-.grave-avatar {
-  width: 34px; height: 34px; border-radius: 9px;
-  object-fit: cover; filter: grayscale(1) brightness(0.5);
-}
-.grave-avatar-fallback {
-  width: 34px; height: 34px; border-radius: 9px;
-  background: rgba(255,255,255,0.08);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Nunito',sans-serif; font-size: 14px; font-weight: 900;
-  color: rgba(255,255,255,0.3);
-}
-.grave-skull-overlay {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-}
+.grave-av-wrap { position: relative; width: 34px; height: 34px; }
+.grave-avatar { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; filter: grayscale(1) brightness(0.5); }
+.grave-avatar-fallback { width: 34px; height: 34px; border-radius: 9px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-family: 'Nunito',sans-serif; font-size: 14px; font-weight: 900; color: rgba(255,255,255,0.3); }
+.grave-skull-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; }
 .grave-name { font-size: 11px; font-weight: 700; opacity: 0.7; text-align: center; }
 .grave-reason { font-size: 9px; opacity: 0.35; text-align: center; }
 
-/* ══════════════════════════════════
-   MODAL
-══════════════════════════════════ */
-.modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(10,5,25,0.6); backdrop-filter: blur(4px);
-  z-index: 200; display: none;
-  align-items: center; justify-content: center; padding: 20px;
-}
+/* ══ GHOST ══ */
+.ghost { position: absolute; font-size: 24px; pointer-events: none; z-index: 2; opacity: 0; top: 50%; left: 0; filter: drop-shadow(0 0 6px rgba(255,255,255,0.5)); }
+.ghost:nth-child(1) { animation: gd1 9s ease-in-out 1s infinite; }
+.ghost:nth-child(2) { animation: gd2 12s ease-in-out 4s infinite; font-size: 17px; }
+.ghost:nth-child(3) { animation: gd3 10s ease-in-out 7s infinite; font-size: 20px; }
+@keyframes gd1 { 0%{left:5%;top:65%;opacity:0;transform:scale(0.8)} 10%{opacity:0.9} 50%{left:55%;top:30%;opacity:0.85;transform:scale(1)} 90%{opacity:0.5} 100%{left:90%;top:55%;opacity:0;transform:scale(0.7)} }
+@keyframes gd2 { 0%{left:80%;top:70%;opacity:0;transform:scale(0.7)} 10%{opacity:0.8} 45%{left:35%;top:25%;opacity:0.75;transform:scale(1)} 90%{opacity:0.4} 100%{left:10%;top:60%;opacity:0;transform:scale(0.8)} }
+@keyframes gd3 { 0%{left:40%;top:75%;opacity:0;transform:scale(0.9)} 12%{opacity:0.7} 55%{left:75%;top:20%;opacity:0.65;transform:scale(1.1)} 90%{opacity:0.3} 100%{left:20%;top:50%;opacity:0;transform:scale(0.8)} }
+
+/* ══ KICK ══ */
+.kick-row { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; margin-top: 6px; padding-top: 8px; border-top: 1px dashed rgba(239,68,68,0.2); }
+.kick-label { font-size: 10px; font-weight: 700; color: rgba(239,68,68,0.6); }
+.kick-btns { display: flex; align-items: center; gap: 6px; }
+.kick-btn { font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 20px; border: none; cursor: pointer; font-family: 'Nunito Sans', sans-serif; transition: all 0.15s; }
+.kick-btn-yes { background: rgba(239,68,68,0.12); color: #c0392b; }
+.kick-btn-yes:hover { background: rgba(239,68,68,0.22); }
+.kick-btn-no { background: rgba(34,197,94,0.1); color: #166534; }
+.kick-btn-no:hover { background: rgba(34,197,94,0.2); }
+
+/* ══ MODAL ══ */
+.modal-overlay { position: fixed; inset: 0; background: rgba(10,5,25,0.6); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.open { display: flex; }
-
-.modal {
-  background: white; width: 100%;
-  max-width: 440px; max-height: 90vh;
-  border-radius: 28px; overflow-y: auto;
-  animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
-  position: relative; scrollbar-width: none;
-}
-.modal::-webkit-scrollbar { display: none; }
-
-@media (max-width: 720px) {
-  .modal-overlay { align-items: flex-end; padding: 0; }
-  .modal { max-width: 100%; border-radius: 28px 28px 0 0; max-height: 88vh; }
-}
+.modal { background: white; width: 100%; max-width: 440px; max-height: 90vh; border-radius: 28px; overflow: hidden; animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1); position: relative; display: flex; flex-direction: column; }
+.modal-inner { padding: 20px 22px 30px; overflow-y: auto; flex: 1; scrollbar-width: none; }
+.modal-inner::-webkit-scrollbar { display: none; }
+@media (max-width: 720px) { .modal-overlay { align-items: flex-end; padding: 0; } .modal { max-width: 100%; border-radius: 28px 28px 0 0; max-height: 88vh; } }
 @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-.modal-handle {
-  width: 36px; height: 4px;
-  background: #e8e8e8; border-radius: 2px;
-  margin: 14px auto 0;
-  display: none;
-}
+.modal-handle { width: 36px; height: 4px; background: #e8e8e8; border-radius: 2px; margin: 14px auto 0; display: none; }
 @media (max-width: 720px) { .modal-handle { display: block; } }
-
-.modal-inner { padding: 20px 22px 30px; }
-
-.close-btn {
-  position: absolute; top: 16px; right: 16px;
-  width: 30px; height: 30px; background: #f2f2f2;
-  border-radius: 50%; border: none; cursor: pointer;
-  font-size: 13px; display: flex; align-items: center; justify-content: center;
-  color: #666;
-}
-
+.close-btn { position: absolute; top: 16px; right: 16px; width: 30px; height: 30px; background: #f2f2f2; border-radius: 50%; border: none; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; color: #666; z-index: 1; }
 .modal-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
-.modal-avatar {
-  width: 60px; height: 60px; border-radius: 16px;
-  object-fit: cover; flex-shrink: 0;
-}
-.modal-avatar-fallback {
-  width: 60px; height: 60px; border-radius: 16px;
-  background: linear-gradient(135deg,#a855f7,#ff6b9d);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Nunito',sans-serif; font-size: 24px; font-weight: 900;
-  color: white; flex-shrink: 0;
-}
-.modal-name {
-  font-family: 'Nunito', sans-serif;
-  font-size: 22px; font-weight: 900; color: #1a1a2e; margin-bottom: 5px;
-}
-.modal-score-badge {
-  display: inline-flex; align-items: center;
-  font-family: 'Nunito', sans-serif;
-  font-size: 12px; font-weight: 800;
-  padding: 4px 11px; border-radius: 20px;
-}
+.modal-avatar { width: 60px; height: 60px; border-radius: 16px; object-fit: cover; flex-shrink: 0; }
+.modal-avatar-fallback { width: 60px; height: 60px; border-radius: 16px; background: linear-gradient(135deg,#a855f7,#ff6b9d); display: flex; align-items: center; justify-content: center; font-family: 'Nunito',sans-serif; font-size: 24px; font-weight: 900; color: white; flex-shrink: 0; }
+.modal-name { font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; color: #1a1a2e; margin-bottom: 5px; }
+.modal-score-badge { display: inline-flex; align-items: center; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 800; padding: 4px 11px; border-radius: 20px; }
 .modal-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
-.modal-vibe-tag {
-  font-size: 10px; font-weight: 700;
-  padding: 3px 8px; border-radius: 8px;
-  background: #f0ebff; color: #7c3aed;
-}
-
+.modal-vibe-tag { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 8px; background: #f0ebff; color: #7c3aed; }
 .modal-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 16px; }
 .modal-stat { background: #f8f5ff; border-radius: 14px; padding: 11px; }
-.modal-stat-val {
-  font-family: 'Nunito', sans-serif;
-  font-size: 18px; font-weight: 900; color: #1a1a2e;
-}
+.modal-stat-val { font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 900; color: #1a1a2e; }
 .modal-stat-label { font-size: 10px; color: #999; font-weight: 600; margin-top: 2px; }
-
 .modal-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-.chart-card { background: #f8f5ff; border-radius: 16px; padding: 13px; }
-.chart-title {
-  font-family: 'Nunito', sans-serif;
-  font-size: 10px; font-weight: 800;
-  color: #666; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px;
-}
-.chart-wrap { position: relative; height: 110px; }
+.chart-card { background: #f8f5ff; border-radius: 16px; padding: 13px 13px 16px; }
+.chart-title { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 800; color: #666; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px; }
+.chart-wrap { position: relative; height: 150px; width: 100%; }
+.chart-pct { text-align: center; margin-top: 8px; font-family: 'Nunito',sans-serif; font-size: 20px; font-weight: 900; color: #1a1a2e; }
+.modal-note { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.18); border-radius: 13px; padding: 11px 13px; font-size: 12px; color: #c0392b; line-height: 1.5; font-weight: 600; }
+.modal-note-good { background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.18); border-radius: 13px; padding: 11px 13px; font-size: 12px; color: #166534; line-height: 1.5; font-weight: 600; }
 
-.modal-note {
-  background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.18);
-  border-radius: 13px; padding: 11px 13px;
-  font-size: 12px; color: #c0392b; line-height: 1.5; font-weight: 600;
-}
-.modal-note-good {
-  background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.18);
-  border-radius: 13px; padding: 11px 13px;
-  font-size: 12px; color: #166534; line-height: 1.5; font-weight: 600;
-}
-/* ══════════════════════════════════
-   UPSELL POPUP (centered)
-══════════════════════════════════ */
-.secret-popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.85);
-  width: 300px;
-  background: white;
-  border-radius: 20px;
-  padding: 0;
-  z-index: 999;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.34,1.3,0.64,1);
-  box-shadow: 0 32px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.06);
-  overflow: hidden;
-}
-.secret-popup.visible {
-  opacity: 1;
-  pointer-events: all;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-/* Dim overlay behind centered popups */
-.secret-overlay {
-  position: fixed; inset: 0;
-  background: rgba(15,10,30,0.45);
-  backdrop-filter: blur(2px);
-  z-index: 998;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
+/* ══ POPUPS ══ */
+.secret-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.85); width: 300px; background: white; border-radius: 20px; padding: 0; z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.34,1.3,0.64,1); box-shadow: 0 32px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.06); overflow: hidden; }
+.secret-popup.visible { opacity: 1; pointer-events: all; transform: translate(-50%, -50%) scale(1); }
+.secret-overlay { position: fixed; inset: 0; background: rgba(15,10,30,0.45); backdrop-filter: blur(2px); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .secret-overlay.visible { opacity: 1; pointer-events: all; }
-
-.secret-banner {
-  background: linear-gradient(135deg, #ff6b9d, #a855f7);
-  padding: 10px 14px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.secret-banner-label {
-  font-family: 'Nunito', sans-serif;
-  font-size: 9px; font-weight: 900;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(255,255,255,0.85);
-  display: flex; align-items: center; gap: 5px;
-}
-.secret-banner-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: #fff; animation: blink 1.8s infinite;
-}
-.secret-close {
-  background: rgba(255,255,255,0.2); border: none; cursor: pointer;
-  color: white; font-size: 11px; padding: 0;
-  width: 20px; height: 20px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  line-height: 1; font-weight: 700;
-}
+.secret-banner { background: linear-gradient(135deg, #ff6b9d, #a855f7); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; }
+.secret-banner-label { font-family: 'Nunito', sans-serif; font-size: 9px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.85); display: flex; align-items: center; gap: 5px; }
+.secret-banner-dot { width: 5px; height: 5px; border-radius: 50%; background: #fff; animation: blink 1.8s infinite; }
+.secret-close { background: rgba(255,255,255,0.2); border: none; cursor: pointer; color: white; font-size: 11px; padding: 0; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; font-weight: 700; }
 .secret-close:hover { background: rgba(255,255,255,0.35); }
-
 .secret-inner { padding: 14px 16px 16px; }
-
-.secret-offer-row {
-  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
-}
-.secret-offer-icon {
-  width: 42px; height: 42px; border-radius: 12px;
-  background: linear-gradient(135deg, #fef3c7, #fde68a);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px; flex-shrink: 0;
-}
-.secret-offer-title {
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px; font-weight: 900; color: #1a1a2e; margin-bottom: 1px;
-}
-.secret-offer-sub {
-  font-size: 11px; color: #888; font-weight: 600;
-}
-
-.secret-price-row {
-  background: #f8f5ff;
-  border-radius: 12px; padding: 10px 13px;
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 12px;
-}
+.secret-offer-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.secret-offer-icon { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, #fef3c7, #fde68a); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.secret-offer-title { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 900; color: #1a1a2e; margin-bottom: 1px; }
+.secret-offer-sub { font-size: 11px; color: #888; font-weight: 600; }
+.secret-price-row { background: #f8f5ff; border-radius: 12px; padding: 10px 13px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .secret-price-left { font-size: 11px; color: #666; font-weight: 600; line-height: 1.4; }
 .secret-price-left strong { color: #1a1a2e; font-weight: 800; font-size: 13px; }
-.secret-price {
-  font-family: 'Nunito', sans-serif;
-  font-size: 20px; font-weight: 900;
-  color: #a855f7; white-space: nowrap;
-}
+.secret-price { font-family: 'Nunito', sans-serif; font-size: 20px; font-weight: 900; color: #a855f7; white-space: nowrap; }
 .secret-price span { font-size: 11px; color: #bbb; font-weight: 600; display: block; text-align: right; }
-
 .secret-actions { display: flex; gap: 8px; }
-.secret-btn {
-  flex: 1; padding: 10px 8px; border-radius: 12px;
-  font-size: 12px; font-weight: 800; cursor: pointer;
-  font-family: 'Nunito', sans-serif; border: none;
-  transition: all 0.15s;
-}
-.secret-btn-yes {
-  background: linear-gradient(135deg, #ff6b9d, #a855f7);
-  color: white;
-}
+.secret-btn { flex: 1; padding: 10px 8px; border-radius: 12px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: 'Nunito', sans-serif; border: none; transition: all 0.15s; }
+.secret-btn-yes { background: linear-gradient(135deg, #ff6b9d, #a855f7); color: white; }
 .secret-btn-yes:hover { opacity: 0.88; transform: translateY(-1px); }
-.secret-btn-no {
-  background: #f4f4f4; color: #999;
-}
+.secret-btn-no { background: #f4f4f4; color: #999; }
 .secret-btn-no:hover { background: #ececec; }
+.secret-fine-print { font-size: 9px; color: #ccc; text-align: center; margin-top: 9px; line-height: 1.4; font-weight: 600; }
 
-.secret-fine-print {
-  font-size: 9px; color: #ccc; text-align: center;
-  margin-top: 9px; line-height: 1.4; font-weight: 600;
-}
-/* ══════════════════════════════════
-   GHOST ANIMATION
-══════════════════════════════════ */
-.ghost {
-  position: absolute;
-  font-size: 24px;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0;
-  top: 50%;
-  left: 0;
-  filter: drop-shadow(0 0 6px rgba(255,255,255,0.5));
-}
-.ghost:nth-child(1) { animation: ghostDrift1 9s ease-in-out 1s infinite; }
-.ghost:nth-child(2) { animation: ghostDrift2 12s ease-in-out 4s infinite; font-size: 17px; }
-.ghost:nth-child(3) { animation: ghostDrift3 10s ease-in-out 7s infinite; font-size: 20px; }
-
-@keyframes ghostDrift1 {
-  0%   { left: 5%;  top: 65%; opacity: 0;   transform: scale(0.8); }
-  10%  { opacity: 0.9; }
-  50%  { left: 55%; top: 30%; opacity: 0.85; transform: scale(1); }
-  90%  { opacity: 0.5; }
-  100% { left: 90%; top: 55%; opacity: 0;   transform: scale(0.7); }
-}
-@keyframes ghostDrift2 {
-  0%   { left: 80%; top: 70%; opacity: 0;   transform: scale(0.7); }
-  10%  { opacity: 0.8; }
-  45%  { left: 35%; top: 25%; opacity: 0.75; transform: scale(1); }
-  90%  { opacity: 0.4; }
-  100% { left: 10%; top: 60%; opacity: 0;   transform: scale(0.8); }
-}
-@keyframes ghostDrift3 {
-  0%   { left: 40%; top: 75%; opacity: 0;   transform: scale(0.9); }
-  12%  { opacity: 0.7; }
-  55%  { left: 75%; top: 20%; opacity: 0.65; transform: scale(1.1); }
-  90%  { opacity: 0.3; }
-  100% { left: 20%; top: 50%; opacity: 0;   transform: scale(0.8); }
-}
-
-/* ══════════════════════════════════
-   VOTE TO KICK
-══════════════════════════════════ */
-.kick-row {
-  grid-column: 1 / -1;
-  display: flex; align-items: center; justify-content: space-between;
-  margin-top: 6px; padding-top: 8px;
-  border-top: 1px dashed rgba(239,68,68,0.2);
-}
-.kick-label {
-  font-size: 10px; font-weight: 700; color: rgba(239,68,68,0.6);
-}
-.kick-btns { display: flex; align-items: center; gap: 6px; }
-.kick-btn {
-  font-size: 10px; font-weight: 800;
-  padding: 4px 10px; border-radius: 20px;
-  border: none; cursor: pointer;
-  font-family: 'Nunito Sans', sans-serif;
-  transition: all 0.15s;
-}
-.kick-btn-yes {
-  background: rgba(239,68,68,0.12); color: #c0392b;
-}
-.kick-btn-yes:hover { background: rgba(239,68,68,0.22); }
-.kick-btn-no {
-  background: rgba(34,197,94,0.1); color: #166534;
-}
-.kick-btn-no:hover { background: rgba(34,197,94,0.2); }
-.kick-tally {
-  font-size: 10px; font-weight: 800; color: #ef4444;
-  min-width: 36px; text-align: right;
-}
-/* ══════════════════════════════════
-   WELCOME / IDENTITY SCREEN
-══════════════════════════════════ */
-.welcome-screen {
-  position: fixed; inset: 0;
-  background: #f0eeff;
-  z-index: 1000;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 24px;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.welcome-screen.hidden {
-  opacity: 0; transform: scale(1.04); pointer-events: none;
-}
-
-.welcome-brand {
-  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
-}
-.welcome-brand-icon {
-  width: 48px; height: 48px;
-  background: linear-gradient(135deg, #ff6b9d, #a855f7);
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 26px;
-}
-.welcome-brand-name {
-  font-family: 'Nunito', sans-serif;
-  font-size: 40px; font-weight: 900;
-  background: linear-gradient(135deg, #ff6b9d, #a855f7);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text; letter-spacing: -1px;
-}
-.welcome-title {
-  font-family: 'Nunito', sans-serif;
-  font-size: 18px; font-weight: 800; color: #1a1a2e;
-  margin-bottom: 4px; text-align: center;
-}
-.welcome-sub {
-  font-size: 13px; color: #888; font-weight: 600;
-  margin-bottom: 28px; text-align: center;
-}
-
-.member-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
-  gap: 10px;
-  width: 100%; max-width: 560px;
-  max-height: 55vh; overflow-y: auto;
-  padding: 4px; scrollbar-width: thin;
-}
-
-.member-tile {
-  background: white;
-  border-radius: 16px;
-  padding: 12px 8px 10px;
-  border: 2px solid transparent;
-  cursor: pointer;
-  display: flex; flex-direction: column; align-items: center; gap: 7px;
-  transition: all 0.15s;
-  text-align: center;
-}
-.member-tile:hover {
-  border-color: #a855f7;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(168,85,247,0.15);
-}
-.member-tile.selected {
-  border-color: #a855f7;
-  background: linear-gradient(135deg, rgba(255,107,157,0.06), rgba(168,85,247,0.08));
-  box-shadow: 0 0 0 4px rgba(168,85,247,0.12);
-}
-.tile-avatar {
-  width: 46px; height: 46px; border-radius: 13px;
-  object-fit: cover; display: block;
-}
-.tile-avatar-fallback {
-  width: 46px; height: 46px; border-radius: 13px;
-  background: linear-gradient(135deg, #a855f7, #ff6b9d);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 900;
-  color: white;
-}
-.tile-name {
-  font-family: 'Nunito', sans-serif;
-  font-size: 12px; font-weight: 800; color: #1a1a2e;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  width: 100%;
-}
+/* ══ WELCOME ══ */
+.welcome-screen { position: fixed; inset: 0; background: #f0eeff; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; transition: opacity 0.5s ease, transform 0.5s ease; }
+.welcome-screen.hidden { opacity: 0; transform: scale(1.04); pointer-events: none; }
+.welcome-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.welcome-brand-icon { width: 48px; height: 48px; background: linear-gradient(135deg, #ff6b9d, #a855f7); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; }
+.welcome-brand-name { font-family: 'Nunito', sans-serif; font-size: 40px; font-weight: 900; background: linear-gradient(135deg, #ff6b9d, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -1px; }
+.welcome-title { font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 800; color: #1a1a2e; margin-bottom: 4px; text-align: center; }
+.welcome-sub { font-size: 13px; color: #888; font-weight: 600; margin-bottom: 28px; text-align: center; }
+.member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 10px; width: 100%; max-width: 560px; max-height: 55vh; overflow-y: auto; padding: 4px; scrollbar-width: thin; }
+.member-tile { background: white; border-radius: 16px; padding: 12px 8px 10px; border: 2px solid transparent; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 7px; transition: all 0.15s; text-align: center; }
+.member-tile:hover { border-color: #a855f7; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(168,85,247,0.15); }
+.member-tile.selected { border-color: #a855f7; background: linear-gradient(135deg, rgba(255,107,157,0.06), rgba(168,85,247,0.08)); box-shadow: 0 0 0 4px rgba(168,85,247,0.12); }
+.tile-avatar { width: 46px; height: 46px; border-radius: 13px; object-fit: cover; display: block; }
+.tile-avatar-fallback { width: 46px; height: 46px; border-radius: 13px; background: linear-gradient(135deg, #a855f7, #ff6b9d); display: flex; align-items: center; justify-content: center; font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 900; color: white; }
+.tile-name { font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 800; color: #1a1a2e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
 .tile-flag { font-size: 13px; line-height: 1; }
-
-.welcome-btn {
-  margin-top: 22px;
-  padding: 14px 48px;
-  background: linear-gradient(135deg, #ff6b9d, #a855f7);
-  color: white; border: none; border-radius: 16px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 15px; font-weight: 900;
-  cursor: pointer; letter-spacing: 0.02em;
-  transition: all 0.15s; opacity: 0.4; pointer-events: none;
-}
+.welcome-btn { margin-top: 22px; padding: 14px 48px; background: linear-gradient(135deg, #ff6b9d, #a855f7); color: white; border: none; border-radius: 16px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 900; cursor: pointer; letter-spacing: 0.02em; transition: all 0.15s; opacity: 0.4; pointer-events: none; }
 .welcome-btn.ready { opacity: 1; pointer-events: all; }
 .welcome-btn.ready:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(168,85,247,0.3); }
-/* ══════════════════════════════════
-   DANGER USER STATE
-══════════════════════════════════ */
-body.danger-user::after {
-  content: '';
-  position: fixed; inset: 0;
-  pointer-events: none;
-  z-index: 500;
-  box-shadow: inset 0 0 80px rgba(239,68,68,0.25), inset 0 0 20px rgba(239,68,68,0.1);
-  border: 3px solid rgba(239,68,68,0.3);
-  border-radius: 0;
-  animation: dangerPulse 3s ease-in-out infinite;
-}
-@keyframes dangerPulse {
-  0%, 100% { box-shadow: inset 0 0 80px rgba(239,68,68,0.2), inset 0 0 20px rgba(239,68,68,0.08); }
-  50%       { box-shadow: inset 0 0 100px rgba(239,68,68,0.35), inset 0 0 30px rgba(239,68,68,0.15); }
-}
 
-.danger-badge {
-  position: fixed;
-  top: 14px; left: 50%; transform: translateX(-50%);
-  z-index: 600;
-  display: none;
-  align-items: center; gap: 7px;
-  background: #ef4444;
-  color: white;
-  font-family: 'Nunito', sans-serif;
-  font-size: 11px; font-weight: 800;
-  padding: 7px 16px 7px 12px;
-  border-radius: 30px;
-  box-shadow: 0 4px 20px rgba(239,68,68,0.4);
-  letter-spacing: 0.03em;
-  animation: badgeBob 4s ease-in-out infinite;
-  white-space: nowrap;
-}
-.danger-badge-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: rgba(255,255,255,0.8);
-  animation: blink 1.2s infinite;
-}
-@keyframes badgeBob {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%       { transform: translateX(-50%) translateY(-2px); }
-}
+/* ══ DANGER STATE ══ */
+body.danger-user::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 500; box-shadow: inset 0 0 80px rgba(239,68,68,0.25), inset 0 0 20px rgba(239,68,68,0.1); border: 3px solid rgba(239,68,68,0.3); animation: dangerPulse 3s ease-in-out infinite; }
+@keyframes dangerPulse { 0%,100%{box-shadow:inset 0 0 80px rgba(239,68,68,0.2),inset 0 0 20px rgba(239,68,68,0.08)} 50%{box-shadow:inset 0 0 100px rgba(239,68,68,0.35),inset 0 0 30px rgba(239,68,68,0.15)} }
+.danger-badge { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 600; display: none; align-items: center; gap: 7px; background: #ef4444; color: white; font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 800; padding: 7px 16px 7px 12px; border-radius: 30px; box-shadow: 0 4px 20px rgba(239,68,68,0.4); letter-spacing: 0.03em; animation: badgeBob 4s ease-in-out infinite; white-space: nowrap; }
+.danger-badge-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.8); animation: blink 1.2s infinite; }
+@keyframes badgeBob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-2px)} }
 </style>
 </head>
 <body>
 
-<!-- ════════ WELCOME SCREEN ════════ -->
+<!-- WELCOME -->
 <div class="welcome-screen" id="welcome-screen">
   <div class="welcome-brand">
     <div class="welcome-brand-icon">👥</div>
@@ -889,243 +271,188 @@ body.danger-user::after {
   <button class="welcome-btn" id="welcome-btn" onclick="enterApp()">Let me in →</button>
 </div>
 
-<!-- ════════════════════════════════════════════════════════
-  ██████████  EDIT YOUR DATA BELOW  ██████████
-  All stats live here. Edit these objects to change the site.
-
-  FIELDS:
-  name        — display name
-  img         — path to image (e.g. "images/dan.png")
-  gender      — "m" or "f" (used for the gender breakdown chart)
-  flag        — emoji flag for their country
-  you         — true = marks you with YOU badge
-  newMember   — true = shows immunity shield tag
-  score       — 0–100  (≥90 elite, 65–89 active, 42–64 watchlist, <42 danger)
-  eventAtt    — 0–100  (% of events attended)
-  respTime    — string shown as-is (e.g. "2 min", "3 hrs", "2 days")
-  leftOnRead  — number of times ghosted
-  jokeLanded  — 0–100  (% of jokes that landed)
-  vibes       — array of personality tags (keep them short, max ~3)
-  note        — optional string shown in the profile popup
-════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════════
+     EDIT YOUR DATA HERE
+════════════════════════════════════════════ -->
 <script>
 const MEMBERS = [
-  {
-    name: "Dan", img: "images/dan.png", flag: "🇬🇧", gender: "m", you: true,
-    score: 97, eventAtt: 95, respTime: "2 min", leftOnRead: 2, jokeLanded: 94,
-    vibes: ["Main character", "Always first to reply", "Meme lord"],
-    note: "Consistently leading the group. An inspiration to all fwens."
-  },
-  {
-    name: "Christy", img: "images/christy.png", flag: "🇿🇦", gender: "f",
-    score: 88, eventAtt: 88, respTime: "8 min", leftOnRead: 7, jokeLanded: 81,
-    vibes: ["Hype person", "Event organiser"],
-    note: "Solid performer. Carries the vibe on slow days."
-  },
-  {
-    name: "Emma", img: "images/emma.png", flag: "🇧🇪", gender: "f",
-    score: 83, eventAtt: 82, respTime: "14 min", leftOnRead: 11, jokeLanded: 76,
-    vibes: ["Voice note queen", "Sends reels"],
-    note: "Reliable and funny. Could reply a bit faster."
-  },
-  {
-    name: "Steph", img: "images/steph.png", flag: "🇬🇧", gender: "f",
-    score: 79, eventAtt: 80, respTime: "22 min", leftOnRead: 18, jokeLanded: 71,
-    vibes: ["Late responder", "Always shows up tho"],
-    note: "Good attendance but the ghosting is noted."
-  },
-  {
-    name: "Steacy", img: "images/steacy.png", flag: "🇨🇦", gender: "f",
-    score: 55, eventAtt: 52, respTime: "35 min", leftOnRead: 22, jokeLanded: 68,
-    vibes: ["Lurker", "Reacts with ❤️ a lot"],
-    note: "Mid-tier engagement. We believe in you."
-  },
-  {
-    name: "Niamh", img: "images/niamh.png", flag: "🇮🇪", gender: "f",
-    score: 71, eventAtt: 72, respTime: "48 min", leftOnRead: 25, jokeLanded: 65,
-    vibes: ["Adds drama unintentionally", "Good at birthdays"],
-  },
-  {
-    name: "Miguel", img: "images/miguel.png", flag: "🇵🇹", gender: "m",
-    score: 35, eventAtt: 28, respTime: "1.5 hrs", leftOnRead: 33, jokeLanded: 59,
-    vibes: ["Dad jokes only", "Disappears on weekends"],
-    note: "Engagement trending downward. Warning issued."
-  },
-  {
-    name: "Frida", img: "images/frida.png", flag: "🇩🇪", gender: "f",
-    score: 62, eventAtt: 60, respTime: "2 hrs", leftOnRead: 38, jokeLanded: 54,
-    vibes: ["Selective participation", "Muted us probably"],
-  },
-  {
-    name: "Bea", img: "images/bea.png", flag: "🇵🇹", gender: "f",
-    score: 58, eventAtt: 55, respTime: "3 hrs", leftOnRead: 44, jokeLanded: 50,
-    vibes: ["Seen but not heard", "Professional lurker"],
-  },
-  {
-    name: "Linn", img: "images/linn.png", flag: "🇫🇮", gender: "f",
-    score: 54, eventAtt: 52, respTime: "4 hrs", leftOnRead: 50, jokeLanded: 46,
-    vibes: ["Half engaged", "Reacts 3 days later"],
-  },
-  {
-    name: "Parker", img: "images/parker.png", flag: "🇺🇸", gender: "m",
-    score: 50, eventAtt: 48, respTime: "6 hrs", leftOnRead: 57, jokeLanded: 42,
-    vibes: ["Time zone excuse", "Never starts convos"],
-  },
-  {
-    name: "Ksenia", img: "images/ksenia.png", flag: "🇷🇺", gender: "f",
-    score: 46, eventAtt: 44, respTime: "9 hrs", leftOnRead: 63, jokeLanded: 38,
-    vibes: ["Ghost mode: on", "Opens, doesn't reply"],
-  },
-  {
-    name: "Mandy", img: "images/mandy.png", flag: "🇫🇮", gender: "f",
-    score: 43, eventAtt: 40, respTime: "12 hrs", leftOnRead: 71, jokeLanded: 34,
-    vibes: ["Occasional cameo", "Breezes in then vanishes"],
-  },
-  {
-    name: "Lovisa", img: "images/lovisa.png", flag: "🇸🇪", gender: "f", newMember: true,
-    score: 48, eventAtt: 44, respTime: "18 hrs", leftOnRead: 80, jokeLanded: 29,
-    vibes: ["Still finding her feet", "Give her time"],
-    note: "🛡️ Newly added — immunity period active. Score not yet counted towards removal."
-  },
-  {
-    name: "Anton", img: "images/anton.png", flag: "🇸🇪", gender: "m", newMember: true,
-    score: 45, eventAtt: 38, respTime: "1 day", leftOnRead: 88, jokeLanded: 25,
-    vibes: ["New here", "Still learning the lore"],
-    note: "🛡️ Newly added — immunity period active. Score not yet counted towards removal."
-  },
-  {
-    name: "David", img: "images/david.png", flag: "🇬🇧", gender: "m",
-    score: 29, eventAtt: 24, respTime: "2 days", leftOnRead: 104, jokeLanded: 18,
-    vibes: ["Are you even alive?", "Seen 2 days ago"],
-    note: "Sustained inactivity detected. Final warning before escalation."
-  },
-  {
-    name: "Youri", img: "images/youri.png", flag: "🇳🇱", gender: "m",
-    score: 21, eventAtt: 16, respTime: "3 days", leftOnRead: 121, jokeLanded: 12,
-    vibes: ["Left the country mentally", "Peak ghost"],
-    note: "Critical engagement failure. Removal review in progress."
-  },
-  {
-    name: "Pål", img: "images/pal.png", flag: "🇳🇴", gender: "m",
-    score: 14, eventAtt: 9, respTime: "5 days", leftOnRead: 139, jokeLanded: 7,
-    vibes: ["We miss you Pål", "Signal: none"],
-    note: "Profile flagged. Last active status: unknown."
-  },
-  {
-    name: "Sef", img: "images/sef.png", flag: "🇸🇪", gender: "m",
-    score: 52, eventAtt: 4, respTime: "1 week", leftOnRead: 158, jokeLanded: 3,
-    vibes: ["Theoretical member", "A myth"],
-    note: "Effectively a ghost. Removal imminent."
-  },
+  { name:"Dan",    img:"images/dan.png",    flag:"🇬🇧", gender:"m", you:true,
+    score:97, eventAtt:95, respTime:"2 min",   leftOnRead:2,   jokeLanded:94,
+    vibes:["Main character","Always first to reply","Really Funny"],
+    note:"Consistently leading the group. An inspiration to all fwens." },
+  { name:"Christy",img:"images/christy.png",flag:"🇿🇦", gender:"f",
+    score:88, eventAtt:88, respTime:"8 min",   leftOnRead:7,   jokeLanded:81,
+    vibes:["Hype person","Owns industrial coffee machine"],
+    note:"Solid performer. Carries the vibe on slow days." },
+  { name:"Emma",   img:"images/emma.png",   flag:"🇧🇪", gender:"f",
+    score:83, eventAtt:82, respTime:"14 min",  leftOnRead:11,  jokeLanded:76,
+    vibes:["Always positive!","Learning Swedish"],
+    note:"Reliable and funny. Could reply a bit faster." },
+  { name:"Steph",  img:"images/steph.png",  flag:"🇬🇧", gender:"f",
+    score:79, eventAtt:80, respTime:"22 min",  leftOnRead:18,  jokeLanded:71,
+    vibes:["Late responder","Always shows up tho"],
+    note:"Good attendance but the ghosting is noted." },
+  { name:"Steacy", img:"images/steacy.png", flag:"🇨🇦", gender:"f",
+    score:20, eventAtt:0,  respTime:"35 min",  leftOnRead:22,  jokeLanded:1,
+    vibes:["Lurker","Literally never comes to anything"],
+    note:"Mid-tier engagement. We believe in you." },
+  { name:"Niamh",  img:"images/niamh.png",  flag:"🇮🇪", gender:"f",
+    score:71, eventAtt:72, respTime:"48 min",  leftOnRead:25,  jokeLanded:65,
+    vibes:["Adds drama unintentionally","Good Craic"] },
+  { name:"Miguel", img:"images/miguel.png", flag:"🇵🇹", gender:"m",
+    score:35, eventAtt:28, respTime:"1.5 hrs", leftOnRead:33,  jokeLanded:59,
+    vibes:["Not mediterranean","New girlfriend"],
+    note:"Engagement trending downward. Warning issued." },
+  { name:"Frida",  img:"images/frida.png",  flag:"🇩🇪", gender:"f",
+    score:62, eventAtt:60, respTime:"2 hrs",   leftOnRead:38,  jokeLanded:54,
+    vibes:["Selective participation","Muted us probably"] },
+  { name:"Bea",    img:"images/bea.png",    flag:"🇵🇹", gender:"f",
+    score:58, eventAtt:55, respTime:"3 hrs",   leftOnRead:44,  jokeLanded:50,
+    vibes:["Seen but not heard","Professional lurker"] },
+  { name:"Linn",   img:"images/linn.png",   flag:"🇫🇮", gender:"f",
+    score:54, eventAtt:52, respTime:"4 hrs",   leftOnRead:50,  jokeLanded:46,
+    vibes:["Half engaged","Reacts 3 days later"] },
+  { name:"Parker", img:"images/parker.png", flag:"🇺🇸", gender:"m",
+    score:50, eventAtt:48, respTime:"6 hrs",   leftOnRead:57,  jokeLanded:42,
+    vibes:["Time zone excuse","Never starts convos"] },
+  { name:"Ksenia", img:"images/ksenia.png", flag:"🇷🇺", gender:"f",
+    score:46, eventAtt:44, respTime:"9 hrs",   leftOnRead:63,  jokeLanded:38,
+    vibes:["Ghost mode: on","Opens, doesn't reply"] },
+  { name:"Mandy",  img:"images/mandy.png",  flag:"🇫🇮", gender:"f",
+    score:63, eventAtt:40, respTime:"12 hrs",  leftOnRead:71,  jokeLanded:34,
+    vibes:["Occasional cameo","Breezes in then vanishes"] },
+  { name:"Lovisa", img:"images/lovisa.png", flag:"🇸🇪", gender:"f", newMember:true,
+    score:48, eventAtt:44, respTime:"18 hrs",  leftOnRead:80,  jokeLanded:29,
+    vibes:["Still finding her feet","Give her time"],
+    note:"🛡️ Newly added — immunity period active. Score not yet counted towards removal." },
+  { name:"Anton",  img:"images/anton.png",  flag:"🇸🇪", gender:"m", newMember:true,
+    score:45, eventAtt:38, respTime:"1 day",   leftOnRead:88,  jokeLanded:25,
+    vibes:["New here","Still learning the lore"],
+    note:"🛡️ Newly added — immunity period active. Score not yet counted towards removal." },
+  { name:"David",  img:"images/david.png",  flag:"🇬🇧", gender:"m",
+    score:29, eventAtt:24, respTime:"2 days",  leftOnRead:104, jokeLanded:18,
+    vibes:["Are you even alive?","Seen 2 days ago"],
+    note:"Sustained inactivity detected. Final warning before escalation." },
+  { name:"Youri",  img:"images/youri.png",  flag:"🇳🇱", gender:"m",
+    score:21, eventAtt:16, respTime:"3 days",  leftOnRead:121, jokeLanded:12,
+    vibes:["Left the country mentally","Peak ghost"],
+    note:"Critical engagement failure. Removal review in progress." },
+  { name:"Pål",    img:"images/pal.png",    flag:"🇳🇴", gender:"m",
+    score:14, eventAtt:9,  respTime:"5 days",  leftOnRead:139, jokeLanded:7,
+    vibes:["We miss you Pål","Signal: none"],
+    note:"Profile flagged. Last active status: unknown." },
+  { name:"Sef",    img:"images/sef.png",    flag:"🇸🇪", gender:"f",
+    score:52, eventAtt:4,  respTime:"1 week",  leftOnRead:158, jokeLanded:3,
+    vibes:["Theoretical member","A myth"],
+    note:"Effectively a ghost. Removal imminent." },
+  { name:"Adrian", img:"images/Adrian.png", flag:"🇷🇴", gender:"m",
+    score:52, eventAtt:4,  respTime:"1 week",  leftOnRead:122, jokeLanded:6,
+    vibes:["He's around","A myth"],
+    note:"Effectively a ghost. Removal imminent." },
 ];
 
-/* ════════════════════════════════════════════════════════
-   GRAVEYARD — Already removed
-════════════════════════════════════════════════════════ */
 const GRAVEYARD = [
-  { name: "Poppy",   img: "images/poppy.png",   reason: "Never replied" },
-  { name: "Angie",   img: "images/angie.png",   reason: "0% attendance" },
-  { name: "Phillip", img: "images/phillip.png", reason: "Left on read ×47" },
-  { name: "Alex",    img: "images/alex.png",    reason: "Score: 3" },
-  { name: "Zorro",   img: "images/zorro.png",   reason: "Unknown" },
+  { name:"Poppy",   img:"images/poppy.png",   reason:"Never replied" },
+  { name:"Angie",   img:"images/angie.png",   reason:"0% attendance" },
+  { name:"Phillip", img:"images/phillip.png", reason:"Left on read ×47" },
+  { name:"Alex",    img:"images/alex.png",    reason:"Score: 3" },
+  { name:"Zorro",   img:"images/zorro.png",   reason:"🤫" },
 ];
 
-/* ════════════════════════════════════════════════════════
-   KICK VOTES — tracks yes/no votes per member name
-   Seeded with some starting votes to make it look active
-════════════════════════════════════════════════════════ */
 const kickVotes = {
-  "Miguel": { yes: 7, no: 2, myVote: null },
-  "David":  { yes: 11, no: 3, myVote: null },
-  "Youri":  { yes: 14, no: 1, myVote: null },
-  "Pål":    { yes: 18, no: 0, myVote: null },
+  "Miguel": { yes:7,  no:2, myVote:null },
+  "David":  { yes:11, no:3, myVote:null },
+  "Youri":  { yes:14, no:1, myVote:null },
+  "Pål":    { yes:18, no:0, myVote:null },
+  "Steacy": { yes:9,  no:1, myVote:null },
 };
 
-/* ════════════════════════════════════════════════════════
-   WEEKLY POLLS — Add / edit questions here
-   options: array of answer strings
-   votes:   matching array of vote counts (adjust to taste)
-════════════════════════════════════════════════════════ */
 const POLLS = [
+  { q:"How funny was Miguel this week?",
+    options:["💀 Actually died laughing","😂 Pretty good","😐 Tried his best","😬 The jokes did not land"],
+    votes:[14,31,28,48] },
+  { q:"Did Christy make you feel welcome at the last event?",
+    options:["🥰 Absolutely, queen behaviour","👍 Yeah she was great","😶 She was there I think","❓ What event"],
+    votes:[52,29,10,30] },
+  { q:"Who sent the best meme this week?",
+    options:["👑 Dan obviously","🔥 Emma absolutely cooked","🤷 Steph's was mid but effort","📵 No good memes this week"],
+    votes:[61,33,12,8] },
+  { q:"How would you rate Youri's group chat presence?",
+    options:["👻 What is a Youri","🦗 Crickets","😴 Occasional like, nothing more","😮 Actually showed up once"],
+    votes:[74,32,10,5] },
+  { q:"Should Pål be given one last chance?",
+    options:["🙏 Yes, we believe","⚖️ Only if he replies now","🚪 The door is closing","🪦 Too late"],
+    votes:[8,15,29,69] },
+];
+
+/* ─────────────────────────────────
+   RECENT EVENTS — edit here
+   status: "happened" | "cancelled"
+   reason: shown in italics (optional)
+───────────────────────────────── */
+const EVENTS = [
   {
-    q: "How funny was Miguel this week?",
-    options: ["💀 Actually died laughing", "😂 Pretty good", "😐 Tried his best", "😬 The jokes did not land"],
-    votes:   [14, 31, 28, 48]
+    name: "Ceilidh",
+    date: "28 March",
+    emoji: "🪩",
+    status: "cancelled",
+    reason: "Called off due to sickness — get well soon everyone 🤧"
   },
   {
-    q: "Did Christy make you feel welcome at the last event?",
-    options: ["🥰 Absolutely, queen behaviour", "👍 Yeah she was great", "😶 She was there I think", "❓ What event"],
-    votes:   [52, 29, 10, 30]
+    name: "Hangout",
+    date: "26 March",
+    emoji: "🛋️",
+    status: "cancelled",
+    reason: "Also cancelled — half the group was ill 🤒"
   },
   {
-    q: "Who sent the best meme this week?",
-    options: ["👑 Dan obviously", "🔥 Emma absolutely cooked", "🤷 Steph's was mid but effort", "📵 No good memes this week"],
-    votes:   [61, 33, 12, 8]
-  },
-  {
-    q: "How would you rate Youri's group chat presence?",
-    options: ["👻 What is a Youri", "🦗 Crickets", "😴 Occasional like, nothing more", "😮 Actually showed up once"],
-    votes:   [74, 32, 10, 5]
-  },
-  {
-    q: "Should Pål be given one last chance?",
-    options: ["🙏 Yes, we believe", "⚖️ Only if he replies now", "🚪 The door is closing", "🪦 Too late"],
-    votes:   [8, 15, 29, 69]
+    name: "Miguel's Birthday Bash",
+    date: "21 March",
+    emoji: "🎂",
+    status: "happened",
+    reason: "Great turnout. Cake was consumed. Miguel was delighted."
   },
 ];
+
+const MVP = {
+  name: "Christy",
+  img:  "images/christy.png",
+  flag: "🇿🇦",
+  reason: "Made two banger jokes in the chat, welcomed a new member, and hosted Dan on her sofa. Absolute legend behaviour.",
+  stats: ["💬 312 messages", "❤️ Most reacts given"],
+  week: "Week of 31 March"
+};
 </script>
 
-<!-- ════════ DANGER BADGE ════════ -->
+<!-- DANGER BADGE -->
 <div class="danger-badge" id="danger-badge">
   <div class="danger-badge-dot"></div>
   ⚠️ Your score is in the danger zone — removal risk
 </div>
 
-<!-- ════════ APP ════════ -->
+<!-- APP -->
 <div class="layout">
-
-  <!-- ── SIDEBAR ── -->
   <div class="sidebar">
 
-    <!-- Desktop brand -->
     <div class="sidebar-brand panel" style="padding:16px 20px;">
-      <div class="brand">
-        <div class="brand-icon">👥</div>
-        <div class="brand-name">fwens</div>
-      </div>
+      <div class="brand"><div class="brand-icon">👥</div><div class="brand-name">fwens</div></div>
       <div class="live-chip"><div class="live-dot"></div> Live</div>
     </div>
-
-    <!-- Mobile topbar -->
     <div class="topbar">
-      <div class="brand">
-        <div class="brand-icon">👥</div>
-        <div class="brand-name">fwens</div>
-      </div>
+      <div class="brand"><div class="brand-icon">👥</div><div class="brand-name">fwens</div></div>
       <div class="live-chip"><div class="live-dot"></div> Live</div>
     </div>
 
-    <!-- Hero stats -->
     <div class="hero">
       <div class="hero-label">Group Activity Score</div>
       <div class="hero-title">See who's keeping up 👀</div>
       <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="hero-stat-val" id="hero-total">—</div>
-          <div class="hero-stat-label">Members</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-val" id="hero-danger">—</div>
-          <div class="hero-stat-label">At Risk 🚨</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-val" id="hero-avg">—</div>
-          <div class="hero-stat-label">Avg Score</div>
-        </div>
+        <div class="hero-stat"><div class="hero-stat-val" id="hero-total">—</div><div class="hero-stat-label">Members</div></div>
+        <div class="hero-stat"><div class="hero-stat-val" id="hero-danger">—</div><div class="hero-stat-label">At Risk 🚨</div></div>
+        <div class="hero-stat"><div class="hero-stat-val" id="hero-avg">—</div><div class="hero-stat-label">Avg Score</div></div>
       </div>
     </div>
 
-    <!-- Alert -->
     <div class="danger-alert">
       <div class="alert-emoji">🚨</div>
       <div>
@@ -1134,7 +461,13 @@ const POLLS = [
       </div>
     </div>
 
-    <!-- Weekly Vote -->
+    <!-- RECENT EVENTS -->
+    <div class="panel" style="padding:18px 20px 20px;">
+      <div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:14px;">📆 Recent Events</div>
+      <div class="events-list" id="events-list"></div>
+    </div>
+
+    <!-- WEEKLY POLL -->
     <div class="panel vote-panel" style="overflow:visible;">
       <div class="vote-header">
         <div class="vote-title">Weekly Poll</div>
@@ -1149,10 +482,9 @@ const POLLS = [
       </div>
     </div>
 
-    <!-- MVP Card -->
     <div class="mvp-card" id="mvp-card"></div>
 
-    <!-- Country breakdown -->
+    <!-- COUNTRY CHART -->
     <div class="panel" style="padding:18px 20px 20px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:6px;">
         <div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:#1a1a2e;">🌍 Members by Country</div>
@@ -1162,7 +494,7 @@ const POLLS = [
       <div id="country-legend" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;"></div>
     </div>
 
-    <!-- Gender breakdown -->
+    <!-- GENDER CHART -->
     <div class="panel" style="padding:18px 20px 20px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:6px;">
         <div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:#1a1a2e;">👥 Men vs Women</div>
@@ -1172,7 +504,7 @@ const POLLS = [
       <div id="gender-legend" style="display:flex;gap:14px;margin-top:12px;justify-content:center;"></div>
     </div>
 
-    <!-- Graveyard -->
+    <!-- GRAVEYARD -->
     <div class="graveyard">
       <div class="graveyard-sky"></div>
       <div class="graveyard-moon"></div>
@@ -1186,7 +518,6 @@ const POLLS = [
 
   </div><!-- /sidebar -->
 
-  <!-- ── MAIN ── -->
   <div class="main">
     <div class="panel" style="overflow:hidden;">
       <div class="lb-header">
@@ -1200,12 +531,11 @@ const POLLS = [
       <div class="cards" id="cards"></div>
     </div>
   </div>
+</div>
 
-</div><!-- /layout -->
-
-<!-- ════════ MODAL ════════ -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="overlayClick(event)">
-  <div class="modal" id="modal">
+  <div class="modal">
     <div class="modal-handle"></div>
     <button class="close-btn" onclick="closeModal()">✕</button>
     <div class="modal-inner" id="modal-inner"></div>
@@ -1213,303 +543,166 @@ const POLLS = [
 </div>
 
 <script>
-/* ── Utils ── */
-function zone(s) {
-  if (s >= 90) return 'elite';
-  if (s >= 65) return 'safe';
-  if (s >= 42) return 'warn';
-  return 'danger';
-}
-function scoreCls(s) {
-  return s >= 90 ? 'score-elite' : s >= 65 ? 'score-good' : s >= 42 ? 'score-warn' : 'score-danger';
-}
-function barCol(s) {
-  return s >= 90 ? '#c8a92a' : s >= 65 ? '#22c55e' : s >= 42 ? '#f59e0b' : '#ef4444';
-}
-function initial(n) { return n[0].toUpperCase(); }
+function zone(s){if(s>=90)return'elite';if(s>=65)return'safe';if(s>=42)return'warn';return'danger';}
+function scoreCls(s){return s>=90?'score-elite':s>=65?'score-good':s>=42?'score-warn':'score-danger';}
+function barCol(s){return s>=90?'#c8a92a':s>=65?'#22c55e':s>=42?'#f59e0b':'#ef4444';}
+function initial(n){return n[0].toUpperCase();}
 
-function mkAvatar(img, name, cls) {
-  const i = new Image();
-  i.src = img; i.className = cls; i.alt = name;
-  i.onerror = function () {
-    const fb = document.createElement('div');
-    fb.className = cls + '-fallback';
-    fb.textContent = initial(name);
-    this.replaceWith(fb);
-  };
+function mkAvatar(img,name,cls){
+  const i=new Image();i.src=img;i.className=cls;i.alt=name;
+  i.onerror=function(){const fb=document.createElement('div');fb.className=cls+'-fallback';fb.textContent=initial(name);this.replaceWith(fb);};
   return i;
 }
 
 /* ── Leaderboard ── */
-let sortBy = 'score';
-function setSort(f, btn) {
-  sortBy = f;
-  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderCards();
-}
+let sortBy='score';
+function setSort(f,btn){sortBy=f;document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderCards();}
 
-function renderCards() {
-  const sorted = [...MEMBERS].sort((a, b) => {
-    if (sortBy === 'eventAtt') return b.eventAtt - a.eventAtt;
-    if (sortBy === 'speed')    return b.score - a.score; // proxy
-    return b.score - a.score;
-  });
-
-  const c = document.getElementById('cards');
-  c.innerHTML = '';
-  let shownWarn = false, shownDanger = false, danger = 0, total = 0;
-
-  sorted.forEach((m, i) => {
-    const z = zone(m.score);
-    if (z === 'danger' && !m.newMember) danger++;
-    total += m.score;
-
-    if (sortBy === 'score') {
-      if (!shownWarn && z === 'warn') {
-        c.appendChild(mkDiv('warn'));
-        shownWarn = true;
-      }
-      if (!shownDanger && z === 'danger') {
-        c.appendChild(mkDiv('danger'));
-        shownDanger = true;
-      }
+function renderCards(){
+  const sorted=[...MEMBERS].sort((a,b)=>{if(sortBy==='eventAtt')return b.eventAtt-a.eventAtt;return b.score-a.score;});
+  const c=document.getElementById('cards');c.innerHTML='';
+  let shownWarn=false,shownDanger=false,danger=0,total=0;
+  sorted.forEach((m,i)=>{
+    const z=zone(m.score);
+    if(z==='danger'&&!m.newMember)danger++;
+    total+=m.score;
+    if(sortBy==='score'){
+      if(!shownWarn&&z==='warn'){c.appendChild(mkDiv('warn'));shownWarn=true;}
+      if(!shownDanger&&z==='danger'){c.appendChild(mkDiv('danger'));shownDanger=true;}
     }
-
-    const card = document.createElement('div');
-    const cc = z === 'danger' ? 'danger-card' : z === 'warn' ? 'warn-card' : m.you ? 'you-card' : '';
-    card.className = `card ${cc}`;
-    card.onclick = () => openModal(m);
-
-    const av = mkAvatar(m.img, m.name, 'avatar');
-
-    // Tags
-    const medals = ['🥇','🥈','🥉'];
-    const rank = (i < 3 && z !== 'danger') ? medals[i] : `#${i+1}`;
-    let tagHtml = '';
-    if (m.you) tagHtml += '<span class="tag you-tag">YOU</span>';
-    if (m.newMember) tagHtml += '<span class="tag new-tag">🛡️ New</span>';
-    else if (z === 'danger') tagHtml += '<span class="tag danger-tag">AT RISK</span>';
-    else if (z === 'warn')   tagHtml += '<span class="tag warn-tag">WATCH</span>';
-    if (m.vibes && m.vibes[0]) tagHtml += `<span class="vibe-tag">${m.vibes[0]}</span>`;
-
-    const main = document.createElement('div');
-    main.className = 'card-main';
-    const attDisplay = m.newMember ? 'N/A' : `${m.eventAtt}%`;
-    main.innerHTML = `
-      <div class="card-name-row">
-        <span class="card-name">${m.name}</span>
-        <span class="flag">${m.flag || ''}</span>
-        ${tagHtml}
-      </div>
-      <div class="mini-stats">
-        <span class="mini-stat">📅 ${attDisplay}</span>
-        <span class="mini-stat">⚡ ${m.respTime}</span>
-        <span class="mini-stat">👻 ${m.leftOnRead}x</span>
-      </div>`;
-
-    const sc = document.createElement('div');
-    sc.className = 'score-col';
-    if (m.newMember) {
-      sc.innerHTML = `<div class="score-num" style="font-size:16px;color:#bbb;">🔒</div><div class="score-label" style="color:#bbb;">N/A</div>`;
-    } else {
-      sc.innerHTML = `<div class="score-num ${scoreCls(m.score)}">${m.score}</div><div class="score-label">score</div>`;
-    }
-
-    const bw = document.createElement('div');
-    bw.className = 'score-bar-wrap';
-    if (m.newMember) {
-      bw.innerHTML = `<div class="score-bar" style="width:100%;background:repeating-linear-gradient(90deg,#e8e8e8 0px,#e8e8e8 6px,#f5f5f5 6px,#f5f5f5 12px);"></div>`;
-    } else {
-      bw.innerHTML = `<div class="score-bar" style="width:${m.score}%;background:${barCol(m.score)};"></div>`;
-    }
-
-    card.appendChild(av);
+    const card=document.createElement('div');
+    const cc=z==='danger'?'danger-card':z==='warn'?'warn-card':m.you?'you-card':'';
+    card.className=`card ${cc}`;card.onclick=()=>openModal(m);
+    card.appendChild(mkAvatar(m.img,m.name,'avatar'));
+    let tagHtml='';
+    if(m.you)tagHtml+='<span class="tag you-tag">YOU</span>';
+    if(m.newMember)tagHtml+='<span class="tag new-tag">🛡️ New</span>';
+    else if(z==='danger')tagHtml+='<span class="tag danger-tag">AT RISK</span>';
+    else if(z==='warn')tagHtml+='<span class="tag warn-tag">WATCH</span>';
+    if(m.vibes&&m.vibes[0])tagHtml+=`<span class="vibe-tag">${m.vibes[0]}</span>`;
+    const main=document.createElement('div');main.className='card-main';
+    main.innerHTML=`<div class="card-name-row"><span class="card-name">${m.name}</span><span class="flag">${m.flag||''}</span>${tagHtml}</div><div class="mini-stats"><span class="mini-stat">📅 ${m.newMember?'N/A':m.eventAtt+'%'}</span><span class="mini-stat">⚡ ${m.respTime}</span><span class="mini-stat">👻 ${m.leftOnRead}x</span></div>`;
     card.appendChild(main);
+    const sc=document.createElement('div');sc.className='score-col';
+    sc.innerHTML=m.newMember?`<div class="score-num" style="font-size:16px;color:#bbb;">🔒</div><div class="score-label" style="color:#bbb;">N/A</div>`:`<div class="score-num ${scoreCls(m.score)}">${m.score}</div><div class="score-label">score</div>`;
     card.appendChild(sc);
+    const bw=document.createElement('div');bw.className='score-bar-wrap';
+    bw.innerHTML=m.newMember?`<div class="score-bar" style="width:100%;background:repeating-linear-gradient(90deg,#e8e8e8 0px,#e8e8e8 6px,#f5f5f5 6px,#f5f5f5 12px);"></div>`:`<div class="score-bar" style="width:${m.score}%;background:${barCol(m.score)};"></div>`;
     card.appendChild(bw);
-
-    // Vote to kick row — only for danger zone non-immune members
-    if (z === 'danger' && !m.newMember) {
-      if (!kickVotes[m.name]) kickVotes[m.name] = { yes: 0, no: 0, myVote: null };
-      const kv = kickVotes[m.name];
-      const kickRow = document.createElement('div');
-      kickRow.className = 'kick-row';
-      kickRow.id = `kick-${m.name}`;
-      kickRow.innerHTML = `
-        <span class="kick-label">🗳 Vote to kick</span>
-        <div class="kick-btns">
-          <button class="kick-btn kick-btn-yes" onclick="castKick('${m.name}','yes',event)">👢 Kick (${kv.yes})</button>
-          <button class="kick-btn kick-btn-no" onclick="castKick('${m.name}','no',event)">🙏 Keep (${kv.no})</button>
-        </div>`;
-      card.appendChild(kickRow);
+    if(z==='danger'&&!m.newMember){
+      if(!kickVotes[m.name])kickVotes[m.name]={yes:0,no:0,myVote:null};
+      const kv=kickVotes[m.name];
+      const kr=document.createElement('div');kr.className='kick-row';kr.id=`kick-${m.name}`;
+      kr.innerHTML=`<span class="kick-label">🗳 Vote to kick</span><div class="kick-btns"><button class="kick-btn kick-btn-yes" onclick="castKick('${m.name}','yes',event)">👢 Kick (${kv.yes})</button><button class="kick-btn kick-btn-no" onclick="castKick('${m.name}','no',event)">🙏 Keep (${kv.no})</button></div>`;
+      card.appendChild(kr);
     }
-
     c.appendChild(card);
   });
-
-  document.getElementById('hero-total').textContent = MEMBERS.length;
-  document.getElementById('hero-danger').textContent = danger;
-  document.getElementById('hero-avg').textContent = Math.round(total / MEMBERS.length);
+  document.getElementById('hero-total').textContent=MEMBERS.length;
+  document.getElementById('hero-danger').textContent=danger;
+  document.getElementById('hero-avg').textContent=Math.round(total/MEMBERS.length);
 }
 
-function mkDiv(type) {
-  const d = document.createElement('div');
-  d.className = 'zone-divider';
-  const cls = type === 'danger' ? 'div-danger' : 'div-warn';
-  const lbl = type === 'danger' ? '🚨 Danger Zone' : '⚠ Watch List';
-  d.innerHTML = `<div class="div-line ${cls}"></div><div class="div-label ${cls}">${lbl}</div><div class="div-line ${cls}"></div>`;
+function mkDiv(type){
+  const d=document.createElement('div');d.className='zone-divider';
+  const cls=type==='danger'?'div-danger':'div-warn';
+  const lbl=type==='danger'?'🚨 Danger Zone':'⚠ Watch List';
+  d.innerHTML=`<div class="div-line ${cls}"></div><div class="div-label ${cls}">${lbl}</div><div class="div-line ${cls}"></div>`;
   return d;
 }
 
+/* ── Events ── */
+function renderEvents(){
+  const list=document.getElementById('events-list');list.innerHTML='';
+  EVENTS.forEach(ev=>{
+    const row=document.createElement('div');row.className=`event-row ${ev.status}`;
+    const pillCls=ev.status==='cancelled'?'pill-cancelled':'pill-happened';
+    const pillTxt=ev.status==='cancelled'?'✕ Cancelled':'✓ Happened';
+    row.innerHTML=`<div class="event-emoji">${ev.emoji}</div><div class="event-body"><div class="event-name-row"><span class="event-name">${ev.name}</span><span class="event-status-pill ${pillCls}">${pillTxt}</span></div><div class="event-date">${ev.date}</div>${ev.reason?`<div class="event-reason">${ev.reason}</div>`:''}</div>`;
+    list.appendChild(row);
+  });
+}
+
 /* ── Graveyard ── */
-function renderGraveyard() {
-  const g = document.getElementById('gy-grid');
-  g.innerHTML = '';
-  GRAVEYARD.forEach(p => {
-    const chip = document.createElement('div');
-    chip.className = 'grave-chip';
-
-    const avWrap = document.createElement('div');
-    avWrap.className = 'grave-av-wrap';
-
-    const av = new Image();
-    av.src = p.img; av.className = 'grave-avatar'; av.alt = p.name;
-    av.onerror = function () {
-      const fb = document.createElement('div');
-      fb.className = 'grave-avatar-fallback';
-      fb.textContent = initial(p.name);
-      this.replaceWith(fb);
-    };
-
-    const skull = document.createElement('div');
-    skull.className = 'grave-skull-overlay';
-    skull.textContent = '💀';
-
-    avWrap.appendChild(av);
-    avWrap.appendChild(skull);
-
-    const nameEl = document.createElement('div');
-    nameEl.className = 'grave-name';
-    nameEl.textContent = p.name;
-
-    const reasonEl = document.createElement('div');
-    reasonEl.className = 'grave-reason';
-    reasonEl.textContent = p.reason;
-
-    chip.appendChild(avWrap);
-    chip.appendChild(nameEl);
-    chip.appendChild(reasonEl);
+function renderGraveyard(){
+  const g=document.getElementById('gy-grid');g.innerHTML='';
+  GRAVEYARD.forEach(p=>{
+    const chip=document.createElement('div');chip.className='grave-chip';
+    const avWrap=document.createElement('div');avWrap.className='grave-av-wrap';
+    const av=new Image();av.src=p.img;av.className='grave-avatar';av.alt=p.name;
+    av.onerror=function(){const fb=document.createElement('div');fb.className='grave-avatar-fallback';fb.textContent=initial(p.name);this.replaceWith(fb);};
+    const skull=document.createElement('div');skull.className='grave-skull-overlay';skull.textContent='💀';
+    avWrap.appendChild(av);avWrap.appendChild(skull);
+    const nameEl=document.createElement('div');nameEl.className='grave-name';nameEl.textContent=p.name;
+    const reasonEl=document.createElement('div');reasonEl.className='grave-reason';reasonEl.textContent=p.reason;
+    chip.appendChild(avWrap);chip.appendChild(nameEl);chip.appendChild(reasonEl);
     g.appendChild(chip);
   });
 }
 
 /* ── Polls ── */
-let pollIdx = 0;
-const userVotes = {}; // pollIdx -> optionIdx
-
-function renderPoll() {
-  const p = POLLS[pollIdx];
-  const total = p.votes.reduce((a, b) => a + b, 0);
-  const voted = userVotes[pollIdx] !== undefined;
-
-  document.getElementById('vote-q').textContent = p.q;
-  document.getElementById('vote-progress').textContent = `${pollIdx + 1} / ${POLLS.length}`;
-
-  const opts = document.getElementById('vote-opts');
-  opts.innerHTML = '';
-
-  p.options.forEach((opt, i) => {
-    const pct = Math.round((p.votes[i] / total) * 100);
-    const isVoted = userVotes[pollIdx] === i;
-    const div = document.createElement('div');
-    div.className = 'vote-opt' + (isVoted ? ' voted' : '');
-
-    if (voted) {
-      div.style.cursor = 'default';
-      div.innerHTML =
-        `<span class="vote-opt-label">${opt}</span>` +
-        `<div class="vote-bar-wrap"><div class="vote-bar" style="width:${pct}%"></div></div>` +
-        `<span class="vote-pct">${pct}%</span>`;
-    } else {
-      div.innerHTML = `<span class="vote-opt-label">${opt}</span>`;
-      div.onclick = () => castVote(i);
-    }
+let pollIdx=0;const userVotes={};
+function renderPoll(){
+  const p=POLLS[pollIdx];const total=p.votes.reduce((a,b)=>a+b,0);const voted=userVotes[pollIdx]!==undefined;
+  document.getElementById('vote-q').textContent=p.q;
+  document.getElementById('vote-progress').textContent=`${pollIdx+1} / ${POLLS.length}`;
+  const opts=document.getElementById('vote-opts');opts.innerHTML='';
+  p.options.forEach((opt,i)=>{
+    const pct=Math.round((p.votes[i]/total)*100);const isVoted=userVotes[pollIdx]===i;
+    const div=document.createElement('div');div.className='vote-opt'+(isVoted?' voted':'');
+    if(voted){div.style.cursor='default';div.innerHTML=`<span class="vote-opt-label">${opt}</span><div class="vote-bar-wrap"><div class="vote-bar" style="width:${pct}%"></div></div><span class="vote-pct">${pct}%</span>`;}
+    else{div.innerHTML=`<span class="vote-opt-label">${opt}</span>`;div.onclick=()=>castVote(i);}
     opts.appendChild(div);
   });
 }
+function castVote(i){POLLS[pollIdx].votes[i]++;userVotes[pollIdx]=i;renderPoll();}
+function nextPoll(){pollIdx=(pollIdx+1)%POLLS.length;renderPoll();}
+function prevPoll(){pollIdx=(pollIdx-1+POLLS.length)%POLLS.length;renderPoll();}
 
-function castVote(i) {
-  POLLS[pollIdx].votes[i]++;
-  userVotes[pollIdx] = i;
-  renderPoll();
-}
-
-function nextPoll() { pollIdx = (pollIdx + 1) % POLLS.length; renderPoll(); }
-function prevPoll() { pollIdx = (pollIdx - 1 + POLLS.length) % POLLS.length; renderPoll(); }
-
-/* ── Vote to kick ── */
-function castKick(name, vote, e) {
-  e.stopPropagation();
-  const kv = kickVotes[name];
-  if (kv.myVote) return; // already voted
-  kv.myVote = vote;
-  kv[vote]++;
-  // Update just the kick row buttons without full re-render
-  const row = document.getElementById(`kick-${name}`);
-  if (row) {
-    const btns = row.querySelectorAll('.kick-btn');
-    btns[0].textContent = `👢 Kick (${kv.yes})`;
-    btns[1].textContent = `🙏 Keep (${kv.no})`;
-    btns[0].style.opacity = '0.5';
-    btns[1].style.opacity = '0.5';
-    btns[0].style.cursor = 'default';
-    btns[1].style.cursor = 'default';
-    const label = row.querySelector('.kick-label');
-    label.textContent = vote === 'yes' ? '🗳 You voted to kick' : '🗳 You voted to keep';
-    label.style.color = vote === 'yes' ? '#ef4444' : '#166534';
+/* ── Kick ── */
+function castKick(name,vote,e){
+  e.stopPropagation();const kv=kickVotes[name];if(kv.myVote)return;
+  kv.myVote=vote;kv[vote]++;
+  const row=document.getElementById(`kick-${name}`);
+  if(row){
+    const btns=row.querySelectorAll('.kick-btn');
+    btns[0].textContent=`👢 Kick (${kv.yes})`;btns[1].textContent=`🙏 Keep (${kv.no})`;
+    btns[0].style.opacity='0.5';btns[1].style.opacity='0.5';
+    btns[0].style.cursor='default';btns[1].style.cursor='default';
+    const label=row.querySelector('.kick-label');
+    label.textContent=vote==='yes'?'🗳 You voted to kick':'🗳 You voted to keep';
+    label.style.color=vote==='yes'?'#ef4444':'#166534';
   }
 }
 
 /* ── Modal ── */
-let activeCharts = [];
+let activeCharts=[];
+function openModal(m){
+  activeCharts.forEach(c=>c.destroy());activeCharts=[];
+  const z=zone(m.score);
+  const bbg=z==='elite'?'#fef9c3':z==='safe'?'#dcfce7':z==='warn'?'#fef3c7':'#fee2e2';
+  const bc=z==='elite'?'#854d0e':z==='safe'?'#166534':z==='warn'?'#92400e':'#991b1b';
+  const lbl=z==='elite'?'⭐ Elite':z==='safe'?'✅ Active':z==='warn'?'⚠️ Watch List':'🚨 Danger Zone';
+  let tags='';
+  if(m.you)tags+='<span class="tag you-tag" style="font-size:10px;padding:3px 8px;">YOU</span>';
+  if(m.newMember)tags+='<span class="tag new-tag" style="font-size:10px;padding:3px 8px;">🛡️ Newly Added</span>';
+  const vibeHtml=(m.vibes||[]).map(v=>`<span class="modal-vibe-tag">${v}</span>`).join('');
+  const noteHtml=m.note?`<div class="${z==='danger'||z==='warn'?'modal-note':'modal-note-good'}">📋 ${m.note}</div>`:'';
+  const attVal=m.newMember?'N/A':`${m.eventAtt}%`;
 
-function openModal(m) {
-  activeCharts.forEach(c => c.destroy());
-  activeCharts = [];
-
-  const z = zone(m.score);
-  const bbg = z==='elite'?'#fef9c3':z==='safe'?'#dcfce7':z==='warn'?'#fef3c7':'#fee2e2';
-  const bc  = z==='elite'?'#854d0e':z==='safe'?'#166534':z==='warn'?'#92400e':'#991b1b';
-  const lbl = z==='elite'?'⭐ Elite':z==='safe'?'✅ Active':z==='warn'?'⚠️ Watch List':'🚨 Danger Zone';
-
-  let tags = '';
-  if (m.you)       tags += '<span class="tag you-tag" style="font-size:10px;padding:3px 8px;">YOU</span>';
-  if (m.newMember) tags += '<span class="tag new-tag" style="font-size:10px;padding:3px 8px;">🛡️ Newly Added</span>';
-
-  const vibeHtml = (m.vibes || []).map(v => `<span class="modal-vibe-tag">${v}</span>`).join('');
-
-  const noteHtml = m.note
-    ? `<div class="${z==='danger'||z==='warn'?'modal-note':'modal-note-good'}">📋 ${m.note}</div>`
-    : '';
-
-  document.getElementById('modal-inner').innerHTML = `
+  document.getElementById('modal-inner').innerHTML=`
     <div class="modal-header">
-      <img src="${m.img}" class="modal-avatar" alt="${m.name}"
-        onerror="this.outerHTML='<div class=\\'modal-avatar-fallback\\'>${initial(m.name)}</div>'">
+      <img src="${m.img}" class="modal-avatar" alt="${m.name}" onerror="this.outerHTML='<div class=\\'modal-avatar-fallback\\'>${initial(m.name)}</div>'">
       <div>
         <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:5px;">
-          <div class="modal-name">${m.name} ${m.flag||''}</div>
-          ${tags}
+          <div class="modal-name">${m.name} ${m.flag||''}</div>${tags}
         </div>
-        <span class="modal-score-badge" style="background:${bbg};color:${bc};">
-          ${lbl} &nbsp;·&nbsp; Score: <strong>${m.score}</strong>
-        </span>
+        <span class="modal-score-badge" style="background:${bbg};color:${bc};">${lbl} &nbsp;·&nbsp; Score: <strong>${m.newMember?'N/A':m.score}</strong></span>
         <div class="modal-tags">${vibeHtml}</div>
       </div>
     </div>
     <div class="modal-stats">
-      <div class="modal-stat"><div class="modal-stat-val">📅 ${m.eventAtt}%</div><div class="modal-stat-label">Events Attended</div></div>
+      <div class="modal-stat"><div class="modal-stat-val">📅 ${attVal}</div><div class="modal-stat-label">Events Attended</div></div>
       <div class="modal-stat"><div class="modal-stat-val">⚡ ${m.respTime}</div><div class="modal-stat-label">Avg Reply Time</div></div>
       <div class="modal-stat"><div class="modal-stat-val">👻 ${m.leftOnRead}x</div><div class="modal-stat-label">Left on Read</div></div>
     </div>
@@ -1517,295 +710,121 @@ function openModal(m) {
       <div class="chart-card">
         <div class="chart-title">Event Attendance</div>
         <div class="chart-wrap"><canvas id="ch-att"></canvas></div>
+        <div class="chart-pct" id="ch-att-pct"></div>
       </div>
       <div class="chart-card">
         <div class="chart-title">Jokes That Landed</div>
         <div class="chart-wrap"><canvas id="ch-joke"></canvas></div>
+        <div class="chart-pct" id="ch-joke-pct"></div>
       </div>
     </div>
     ${noteHtml}`;
 
   document.getElementById('modal-overlay').classList.add('open');
 
-  requestAnimationFrame(() => {
-    function mkDoughnut(id, val, color) {
-      return new Chart(document.getElementById(id), {
-        type: 'doughnut',
-        data: {
-          datasets: [{
-            data: [val, 100 - val],
-            backgroundColor: [color, '#f0f0f0'],
-            borderWidth: 0, hoverOffset: 4
-          }]
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false, cutout: '68%',
-          plugins: {
-            legend: { display: false },
-            tooltip: { callbacks: { label: ctx => ` ${ctx.dataIndex===0?'Yes':'No'}: ${ctx.raw}%` } }
-          }
-        }
+  // Wait for modal animation before drawing — fixes canvas sizing issue
+  setTimeout(()=>{
+    function mkDonut(id,val,color){
+      const el=document.getElementById(id);if(!el)return null;
+      return new Chart(el,{type:'doughnut',
+        data:{datasets:[{data:[val,100-val],backgroundColor:[color,'#ede9fe'],borderWidth:0,hoverOffset:4}]},
+        options:{responsive:true,maintainAspectRatio:false,cutout:'62%',layout:{padding:6},
+          plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.dataIndex===0?val+'%':(100-val)+'%'}`}}}}
       });
     }
-    activeCharts = [
-      mkDoughnut('ch-att',  m.eventAtt,  barCol(m.score)),
-      mkDoughnut('ch-joke', m.jokeLanded, '#a855f7')
-    ];
-  });
+    const attV=m.newMember?0:m.eventAtt;
+    activeCharts=[mkDonut('ch-att',attV,barCol(m.score)),mkDonut('ch-joke',m.jokeLanded,'#a855f7')].filter(Boolean);
+    const ap=document.getElementById('ch-att-pct');const jp=document.getElementById('ch-joke-pct');
+    if(ap)ap.textContent=m.newMember?'N/A':`${m.eventAtt}%`;
+    if(jp)jp.textContent=`${m.jokeLanded}%`;
+  },350);
 }
 
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('open');
-  activeCharts.forEach(c => c.destroy());
-  activeCharts = [];
-}
-function overlayClick(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeModal();
-}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');activeCharts.forEach(c=>c.destroy());activeCharts=[];}
+function overlayClick(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
 
 /* ── MVP ── */
-// ════════════════════════════════════════
-// MVP CONFIG — change name/reason/stats here
-// ════════════════════════════════════════
-const MVP = {
-  name: "Christy",
-  img: "images/christy.png",
-  flag: "🇿🇦",
-  reason: "Made two banger jokes in the chat, welcomed a new member, and hosted Dan on her sofa. Absolute legend behaviour.",
-  stats: ["💬 312 messages", "❤️ Most reacts given"],
-  week: "Week of 31 March"
-};
-
-function renderMVP() {
-  const el = document.getElementById('mvp-card');
-  el.innerHTML = `
-    <div class="mvp-header">
-      <span style="font-size:14px;">👑</span>
-      <span class="mvp-label">MVP of the Week</span>
-      <span class="mvp-week">· ${MVP.week}</span>
-    </div>
+function renderMVP(){
+  document.getElementById('mvp-card').innerHTML=`
+    <div class="mvp-header"><span style="font-size:14px;">👑</span><span class="mvp-label">MVP of the Week</span><span class="mvp-week">· ${MVP.week}</span></div>
     <div class="mvp-body">
-      <img src="${MVP.img}" class="mvp-avatar" alt="${MVP.name}"
-        onerror="this.outerHTML='<div class=\\'mvp-avatar-fallback\\'>${MVP.name[0]}</div>'">
-      <div>
-        <div class="mvp-name">${MVP.name} ${MVP.flag}</div>
-        <div class="mvp-reason">${MVP.reason}</div>
-        <div class="mvp-stats">${MVP.stats.map(s => `<span class="mvp-stat">${s}</span>`).join('')}</div>
-      </div>
+      <img src="${MVP.img}" class="mvp-avatar" alt="${MVP.name}" onerror="this.outerHTML='<div class=\\'mvp-avatar-fallback\\'>${MVP.name[0]}</div>'">
+      <div><div class="mvp-name">${MVP.name} ${MVP.flag}</div><div class="mvp-reason">${MVP.reason}</div><div class="mvp-stats">${MVP.stats.map(s=>`<span class="mvp-stat">${s}</span>`).join('')}</div></div>
     </div>`;
-}
-
-/* ── Secret popup ── */
-let secretDismissed = false;
-
-function hideOverlayIfNoneVisible() {
-  if (!document.querySelector('.secret-popup.visible'))
-    document.getElementById('secret-overlay').classList.remove('visible');
-}
-
-function showPopup(id) {
-  document.querySelectorAll('.secret-popup.visible').forEach(p => p.classList.remove('visible'));
-  document.getElementById(id).classList.add('visible');
-  document.getElementById('secret-overlay').classList.add('visible');
-}
-
-function dismissSecret() {
-  secretDismissed = true;
-  document.getElementById('secret-popup').classList.remove('visible');
-  hideOverlayIfNoneVisible();
-}
-
-function dismissPopup(id) {
-  const el = document.getElementById(id);
-  if (el) el.classList.remove('visible');
-  hideOverlayIfNoneVisible();
-}
-
-function dismissAllPopups() {
-  document.querySelectorAll('.secret-popup').forEach(p => p.classList.remove('visible'));
-  document.getElementById('secret-overlay').classList.remove('visible');
-  secretDismissed = true;
-}
-
-function applySecret() {
-  const me = MEMBERS.find(m => m.you);
-  if (me) {
-    me.score = Math.min(100, me.score + 15);
-    renderCards();
-    // If they were in danger zone, check if now safe
-    if (zone(me.score) !== 'danger') {
-      document.body.classList.remove('danger-user');
-      document.getElementById('danger-badge').style.display = 'none';
-    }
-  }
-  const el = document.getElementById('secret-popup');
-  el.innerHTML = `
-    <div class="secret-banner" style="justify-content:center;">
-      <div class="secret-banner-label" style="gap:6px;font-size:10px;">✓ payment received — boost applied!</div>
-    </div>
-    <div class="secret-inner" style="text-align:center;padding:16px;">
-      <div style="font-size:32px;margin-bottom:8px;">🚀</div>
-      <div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;color:#1a1a2e;margin-bottom:4px;">You're looking great, ${currentUser || 'Dan'}.</div>
-      <div style="font-size:11px;color:#888;font-weight:600;">Score updated. Enjoy the view from the top.</div>
-    </div>`;
-  setTimeout(dismissSecret, 2500);
-}
-
-function submitParty() {
-  document.getElementById('party-form').style.display = 'none';
-  document.getElementById('party-thanks').style.display = 'block';
-  setTimeout(() => dismissPopup('party-popup'), 2800);
 }
 
 /* ── Stats charts ── */
-function renderStats() {
-  // Country breakdown
-  const countryCounts = {};
-  const countryFlags = {};
-  MEMBERS.forEach(m => {
-    const key = m.flag || '🏳️';
-    countryCounts[key] = (countryCounts[key] || 0) + 1;
-  });
-  const countryLabels = Object.keys(countryCounts);
-  const countryData = countryLabels.map(k => countryCounts[k]);
-  const palette = ['#a855f7','#ff6b9d','#3b82f6','#22c55e','#f59e0b','#ef4444','#14b8a6','#8b5cf6','#f97316','#06b6d4','#84cc16'];
-
-  new Chart(document.getElementById('chart-countries'), {
-    type: 'doughnut',
-    data: {
-      labels: countryLabels,
-      datasets: [{ data: countryData, backgroundColor: palette.slice(0, countryLabels.length), borderWidth: 2, borderColor: '#fff' }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false, cutout: '55%',
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw} member${ctx.raw > 1 ? 's' : ''}` } } }
-    }
-  });
-
-  // Country legend
-  const legend = document.getElementById('country-legend');
-  countryLabels.forEach((flag, i) => {
-    const item = document.createElement('div');
-    item.style.cssText = 'display:flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#555;';
-    item.innerHTML = `<span style="width:8px;height:8px;border-radius:2px;background:${palette[i]};flex-shrink:0;display:inline-block;"></span>${flag} ${countryCounts[flag]}`;
-    legend.appendChild(item);
-  });
-
-  // Gender breakdown
-  const men = MEMBERS.filter(m => m.gender === 'm').length;
-  const women = MEMBERS.filter(m => m.gender === 'f').length;
-
-  new Chart(document.getElementById('chart-gender'), {
-    type: 'doughnut',
-    data: {
-      labels: ['Men', 'Women'],
-      datasets: [{ data: [men, women], backgroundColor: ['#3b82f6', '#ff6b9d'], borderWidth: 2, borderColor: '#fff' }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false, cutout: '62%',
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}` } } }
-    }
-  });
-
-  const gLegend = document.getElementById('gender-legend');
-  [['Men', men, '#3b82f6'], ['Women', women, '#ff6b9d']].forEach(([label, count, color]) => {
-    const item = document.createElement('div');
-    item.style.cssText = 'display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#555;';
-    item.innerHTML = `<span style="width:10px;height:10px;border-radius:2px;background:${color};display:inline-block;"></span>${label}: ${count}`;
-    gLegend.appendChild(item);
-  });
+function renderStats(){
+  const counts={};
+  MEMBERS.forEach(m=>{const k=m.flag||'🏳️';counts[k]=(counts[k]||0)+1;});
+  const labels=Object.keys(counts),data=labels.map(k=>counts[k]);
+  const palette=['#a855f7','#ff6b9d','#3b82f6','#22c55e','#f59e0b','#ef4444','#14b8a6','#8b5cf6','#f97316','#06b6d4','#84cc16'];
+  new Chart(document.getElementById('chart-countries'),{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:palette.slice(0,labels.length),borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.raw} member${ctx.raw>1?'s':''}`}}}}});
+  const legend=document.getElementById('country-legend');
+  labels.forEach((flag,i)=>{const item=document.createElement('div');item.style.cssText='display:flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#555;';item.innerHTML=`<span style="width:8px;height:8px;border-radius:2px;background:${palette[i]};flex-shrink:0;display:inline-block;"></span>${flag} ${counts[flag]}`;legend.appendChild(item);});
+  const men=MEMBERS.filter(m=>m.gender==='m').length,women=MEMBERS.filter(m=>m.gender==='f').length;
+  new Chart(document.getElementById('chart-gender'),{type:'doughnut',data:{labels:['Men','Women'],datasets:[{data:[men,women],backgroundColor:['#3b82f6','#ff6b9d'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.raw}`}}}}});
+  const gLegend=document.getElementById('gender-legend');
+  [['Men',men,'#3b82f6'],['Women',women,'#ff6b9d']].forEach(([label,count,color])=>{const item=document.createElement('div');item.style.cssText='display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#555;';item.innerHTML=`<span style="width:10px;height:10px;border-radius:2px;background:${color};display:inline-block;"></span>${label}: ${count}`;gLegend.appendChild(item);});
 }
 
-/* ── Welcome screen ── */
-let currentUser = null;
+/* ── Popups ── */
+let secretDismissed=false,currentUser=null;
+function hideOverlayIfNoneVisible(){if(!document.querySelector('.secret-popup.visible'))document.getElementById('secret-overlay').classList.remove('visible');}
+function showPopup(id){document.querySelectorAll('.secret-popup.visible').forEach(p=>p.classList.remove('visible'));document.getElementById(id).classList.add('visible');document.getElementById('secret-overlay').classList.add('visible');}
+function dismissSecret(){secretDismissed=true;document.getElementById('secret-popup').classList.remove('visible');hideOverlayIfNoneVisible();}
+function dismissPopup(id){const el=document.getElementById(id);if(el)el.classList.remove('visible');hideOverlayIfNoneVisible();}
+function dismissAllPopups(){document.querySelectorAll('.secret-popup').forEach(p=>p.classList.remove('visible'));document.getElementById('secret-overlay').classList.remove('visible');secretDismissed=true;}
+function applySecret(){
+  const me=MEMBERS.find(m=>m.you);
+  if(me){me.score=Math.min(100,me.score+15);renderCards();if(zone(me.score)!=='danger'){document.body.classList.remove('danger-user');document.getElementById('danger-badge').style.display='none';}}
+  document.getElementById('secret-popup').innerHTML=`<div class="secret-banner" style="justify-content:center;"><div class="secret-banner-label" style="gap:6px;font-size:10px;">✓ payment received — boost applied!</div></div><div class="secret-inner" style="text-align:center;padding:16px;"><div style="font-size:32px;margin-bottom:8px;">🚀</div><div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;color:#1a1a2e;margin-bottom:4px;">You're looking great, ${currentUser||'friend'}.</div><div style="font-size:11px;color:#888;font-weight:600;">Score updated. Enjoy the view from the top.</div></div>`;
+  setTimeout(dismissSecret,2500);
+}
+function submitParty(){document.getElementById('party-form').style.display='none';document.getElementById('party-thanks').style.display='block';setTimeout(()=>dismissPopup('party-popup'),2800);}
 
-function renderWelcome() {
-  const grid = document.getElementById('member-grid');
-  grid.innerHTML = '';
-  MEMBERS.forEach(m => {
-    const tile = document.createElement('div');
-    tile.className = 'member-tile';
-    tile.id = `tile-${m.name}`;
-    tile.onclick = () => selectUser(m.name);
-
-    const av = new Image();
-    av.src = m.img; av.className = 'tile-avatar'; av.alt = m.name;
-    av.onerror = function() {
-      const fb = document.createElement('div');
-      fb.className = 'tile-avatar-fallback';
-      fb.textContent = initial(m.name);
-      this.replaceWith(fb);
-    };
-
-    const name = document.createElement('div');
-    name.className = 'tile-name';
-    name.textContent = m.name;
-
-    const flag = document.createElement('div');
-    flag.className = 'tile-flag';
-    flag.textContent = m.flag || '';
-
-    tile.appendChild(av);
-    tile.appendChild(name);
-    tile.appendChild(flag);
+/* ── Welcome ── */
+function renderWelcome(){
+  const grid=document.getElementById('member-grid');grid.innerHTML='';
+  MEMBERS.forEach(m=>{
+    const tile=document.createElement('div');tile.className='member-tile';tile.id=`tile-${m.name}`;tile.onclick=()=>selectUser(m.name);
+    const av=new Image();av.src=m.img;av.className='tile-avatar';av.alt=m.name;
+    av.onerror=function(){const fb=document.createElement('div');fb.className='tile-avatar-fallback';fb.textContent=initial(m.name);this.replaceWith(fb);};
+    const name=document.createElement('div');name.className='tile-name';name.textContent=m.name;
+    const flag=document.createElement('div');flag.className='tile-flag';flag.textContent=m.flag||'';
+    tile.appendChild(av);tile.appendChild(name);tile.appendChild(flag);
     grid.appendChild(tile);
   });
 }
-
-function selectUser(name) {
-  currentUser = name;
-  document.querySelectorAll('.member-tile').forEach(t => t.classList.remove('selected'));
+function selectUser(name){
+  currentUser=name;
+  document.querySelectorAll('.member-tile').forEach(t=>t.classList.remove('selected'));
   document.getElementById(`tile-${name}`).classList.add('selected');
-  const btn = document.getElementById('welcome-btn');
-  btn.classList.add('ready');
-  btn.textContent = `I'm ${name} →`;
+  const btn=document.getElementById('welcome-btn');btn.classList.add('ready');btn.textContent=`I'm ${name} →`;
 }
-
-function enterApp() {
-  if (!currentUser) return;
-
-  // Mark the selected member as "you", clear anyone else
-  MEMBERS.forEach(m => { m.you = (m.name === currentUser); });
-
-  // Hide welcome screen
+function enterApp(){
+  if(!currentUser)return;
+  MEMBERS.forEach(m=>{m.you=(m.name===currentUser);});
   document.getElementById('welcome-screen').classList.add('hidden');
-  setTimeout(() => { document.getElementById('welcome-screen').style.display = 'none'; }, 520);
-
-  // Render everything
-  renderCards();
-  renderGraveyard();
-  renderPoll();
-  renderMVP();
-  renderStats();
-
-  // Apply danger state if user is in red zone
-  const me = MEMBERS.find(m => m.name === currentUser);
-  if (me && zone(me.score) === 'danger' && !me.newMember) {
-    document.body.classList.add('danger-user');
-    document.getElementById('danger-badge').style.display = 'flex';
-  }
-
-  // Personalise the Swish popup for whoever logged in
-  document.querySelector('.secret-offer-title').textContent = `Boost Your Score`;
-  document.querySelector('.secret-offer-sub').textContent = `Limited time offer for ${currentUser}`;
-
-  // Show all popups for everyone, staggered
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      setTimeout(() => { if (!secretDismissed) showPopup('secret-popup'); }, 20000);
-      setTimeout(() => showPopup('music-popup'), 35000);
-      setTimeout(() => showPopup('party-popup'), 55000);
-    });
-  });
+  setTimeout(()=>{document.getElementById('welcome-screen').style.display='none';},520);
+  renderCards();renderEvents();renderGraveyard();renderPoll();renderMVP();renderStats();
+  const me=MEMBERS.find(m=>m.name===currentUser);
+  if(me&&zone(me.score)==='danger'&&!me.newMember){document.body.classList.add('danger-user');document.getElementById('danger-badge').style.display='flex';}
+  document.querySelector('.secret-offer-title').textContent='Boost Your Score';
+  document.querySelector('.secret-offer-sub').textContent=`Limited time offer for ${currentUser}`;
+  requestAnimationFrame(()=>{requestAnimationFrame(()=>{
+    setTimeout(()=>{if(!secretDismissed)showPopup('secret-popup');},20000);
+    setTimeout(()=>showPopup('music-popup'),35000);
+    setTimeout(()=>showPopup('party-popup'),55000);
+  });});
 }
-
-/* ── Init welcome screen only — main app renders after identity pick ── */
 renderWelcome();
 </script>
+
 <!-- DIM OVERLAY -->
 <div class="secret-overlay" id="secret-overlay" onclick="dismissAllPopups()"></div>
 
-<!-- UPSELL POPUP -->
+<!-- SWISH POPUP -->
 <div class="secret-popup" id="secret-popup">
   <div class="secret-banner">
     <div class="secret-banner-label"><div class="secret-banner-dot"></div> fwens premium</div>
@@ -1814,17 +833,11 @@ renderWelcome();
   <div class="secret-inner">
     <div class="secret-offer-row">
       <div class="secret-offer-icon">⭐</div>
-      <div>
-        <div class="secret-offer-title">Boost Your Score</div>
-        <div class="secret-offer-sub">Limited time offer for Dan</div>
-      </div>
+      <div><div class="secret-offer-title">Boost Your Score</div><div class="secret-offer-sub">Limited time offer</div></div>
     </div>
     <div class="secret-price-row">
       <div class="secret-price-left">Instant <strong>+15 point</strong> score boost.<br>Applied immediately, no questions asked.</div>
-      <div>
-        <div class="secret-price">100 kr</div>
-        <span>one-time</span>
-      </div>
+      <div><div class="secret-price">100 kr</div><span>one-time</span></div>
     </div>
     <div class="secret-actions">
       <button class="secret-btn secret-btn-yes" onclick="applySecret()">Swish now 🚀</button>
@@ -1833,6 +846,7 @@ renderWelcome();
     <div class="secret-fine-print">By tapping "Swish now" you agree to our Score Enhancement Terms. Boosts are non-refundable. Fwens Analytics AB · Stockholm</div>
   </div>
 </div>
+
 <!-- MUSIC POPUP -->
 <div class="secret-popup" id="music-popup">
   <div class="secret-banner" style="background:linear-gradient(135deg,#fc3c44,#af2d55);">
@@ -1842,14 +856,9 @@ renderWelcome();
   <div class="secret-inner">
     <div class="secret-offer-row">
       <div class="secret-offer-icon" style="background:linear-gradient(135deg,#ffe4e8,#ffc2cc);">🎸</div>
-      <div>
-        <div class="secret-offer-title">David dropped new music!</div>
-        <div class="secret-offer-sub">Penguin Shoot Gun · on Apple Music</div>
-      </div>
+      <div><div class="secret-offer-title">David dropped new music!</div><div class="secret-offer-sub">Penguin Shoot Gun · on Apple Music</div></div>
     </div>
-    <div style="font-size:12px;color:#555;font-weight:600;margin-bottom:12px;line-height:1.5;">
-      Give it a listen and show some support. He's been working hard on this 🙌
-    </div>
+    <div style="font-size:12px;color:#555;font-weight:600;margin-bottom:12px;line-height:1.5;">Give it a listen and show some support. He's been working hard on this 🙌</div>
     <div class="secret-actions">
       <a href="https://music.apple.com/nz/artist/penguin-shoot-gun/1707389046" target="_blank" style="text-decoration:none;flex:1;">
         <button class="secret-btn secret-btn-yes" style="width:100%;background:linear-gradient(135deg,#fc3c44,#af2d55);">Listen now 🎧</button>
@@ -1869,14 +878,9 @@ renderWelcome();
   <div class="secret-inner">
     <div class="secret-offer-row">
       <div class="secret-offer-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">🥂</div>
-      <div>
-        <div class="secret-offer-title">Presentation Party!</div>
-        <div class="secret-offer-sub">Register your interest below</div>
-      </div>
+      <div><div class="secret-offer-title">Presentation Party!</div><div class="secret-offer-sub">Register your interest below</div></div>
     </div>
-    <div style="font-size:12px;color:#555;font-weight:600;margin-bottom:12px;line-height:1.5;">
-      We're planning a presentation party and want to know who's in. Tap below to be notified when the date is confirmed 📅
-    </div>
+    <div style="font-size:12px;color:#555;font-weight:600;margin-bottom:12px;line-height:1.5;">We're planning a presentation party and want to know who's in. Tap below to be notified when the date is confirmed 📅</div>
     <div id="party-form">
       <div class="secret-actions">
         <button class="secret-btn secret-btn-yes" style="background:linear-gradient(135deg,#f59e0b,#d97706);" onclick="submitParty()">I'm interested! 🙋</button>
