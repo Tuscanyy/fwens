@@ -3,50 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>fwens — Group Activity Tracker</title>
+<title>The Regime — Citizen Loyalty Bureau</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Share+Tech+Mono&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body { font-family: 'Nunito Sans', sans-serif; background: #f0eeff; min-height: 100vh; }
+body { font-family: 'Nunito Sans', sans-serif; background: #0d0d0d; min-height: 100vh; }
 
 .layout { display: flex; min-height: 100vh; max-width: 1200px; margin: 0 auto; padding: 24px 20px; gap: 20px; align-items: flex-start; }
 .sidebar { width: 360px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px; }
 .main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
 @media (max-width: 720px) { .layout { flex-direction: column; padding: 12px; gap: 12px; } .sidebar { width: 100%; } }
 
-.panel { background: white; border-radius: 22px; border: 1px solid rgba(0,0,0,0.06); overflow: hidden; }
+.panel { background: #161616; border-radius: 4px; border: 1px solid #2a2a2a; overflow: hidden; }
 
 .topbar { display: none; align-items: center; justify-content: space-between; padding: 4px 0 8px; }
 @media (max-width: 720px) { .topbar { display: flex; } }
 
 .brand { display: flex; align-items: center; gap: 8px; }
-.brand-icon { width: 34px; height: 34px; background: linear-gradient(135deg, #ff6b9d, #a855f7); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-.brand-name { font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; background: linear-gradient(135deg, #ff6b9d, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.live-chip { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; color: #666; background: white; padding: 5px 10px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.08); }
-.live-dot { width: 7px; height: 7px; background: #22c55e; border-radius: 50%; animation: blink 2s infinite; }
+.brand-icon { width: 34px; height: 34px; background: #c8a92a; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.brand-name { font-family: 'Oswald', sans-serif; font-size: 20px; font-weight: 700; color: #c8a92a; letter-spacing: 0.12em; text-transform: uppercase; -webkit-text-fill-color: initial; background: none; }
+.live-chip { display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; color: #666; background: #111; padding: 5px 10px; border-radius: 2px; border: 1px solid #2a2a2a; letter-spacing: 0.08em; font-family: 'Share Tech Mono', monospace; }
+.live-dot { width: 7px; height: 7px; background: #c8a92a; border-radius: 50%; animation: blink 2s infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
 .sidebar-brand { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; }
 @media (max-width: 720px) { .sidebar-brand { display: none; } }
-.sidebar-brand .brand-name { font-size: 26px; }
+.sidebar-brand .brand-name { font-size: 22px; }
 
-.hero { background: linear-gradient(135deg, #ff6b9d 0%, #a855f7 50%, #3b82f6 100%); border-radius: 22px; padding: 18px 20px; color: white; position: relative; overflow: hidden; }
-.hero::before { content: ''; position: absolute; top: -30px; right: -20px; width: 110px; height: 110px; background: rgba(255,255,255,0.08); border-radius: 50%; }
-.hero-label { font-size: 11px; font-weight: 700; opacity: 0.75; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
-.hero-title { font-family: 'Nunito', sans-serif; font-size: 17px; font-weight: 900; margin-bottom: 14px; }
+.hero { background: linear-gradient(135deg, #1a0000 0%, #3a0a00 50%, #1a1000 100%); border-radius: 4px; border: 1px solid #c8a92a; padding: 18px 20px; color: white; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -30px; right: -20px; width: 110px; height: 110px; background: rgba(200,169,42,0.06); border-radius: 50%; }
+.hero-label { font-family: 'Share Tech Mono', monospace; font-size: 10px; font-weight: 400; opacity: 0.6; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2px; }
+.hero-title { font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 14px; letter-spacing: 0.08em; color: #c8a92a; }
 .hero-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; width: 100%; }
-.hero-stat { background: rgba(255,255,255,0.18); border-radius: 12px; padding: 12px 10px; min-width: 0; }
-.hero-stat-val { font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; white-space: nowrap; }
-.hero-stat-label { font-size: 10px; opacity: 0.8; font-weight: 600; margin-top: 2px; }
+.hero-stat { background: rgba(200,169,42,0.08); border: 1px solid rgba(200,169,42,0.2); border-radius: 2px; padding: 12px 10px; min-width: 0; }
+.hero-stat-val { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; white-space: nowrap; color: #c8a92a; }
+.hero-stat-label { font-family: 'Share Tech Mono', monospace; font-size: 9px; opacity: 0.5; font-weight: 400; margin-top: 2px; letter-spacing: 0.1em; }
 
-.danger-alert { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.22); border-radius: 18px; padding: 14px 16px; display: flex; gap: 10px; align-items: flex-start; }
+.danger-alert { background: rgba(180,20,20,0.12); border: 1px solid rgba(200,30,30,0.4); border-radius: 4px; padding: 14px 16px; display: flex; gap: 10px; align-items: flex-start; }
 .alert-emoji { font-size: 20px; flex-shrink: 0; }
-.alert-title { font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 800; color: #ef4444; margin-bottom: 3px; }
-.alert-text { font-size: 11px; color: #666; line-height: 1.5; }
-.alert-text strong { color: #ef4444; font-weight: 700; }
+.alert-title { font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 600; color: #ff4444; margin-bottom: 3px; letter-spacing: 0.08em; text-transform: uppercase; }
+.alert-text { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: #888; line-height: 1.6; }
+.alert-text strong { color: #ff6666; font-weight: 700; }
 
 /* ══ EVENTS ══ */
 .events-list { display: flex; flex-direction: column; gap: 8px; }
@@ -83,58 +83,64 @@ body { font-family: 'Nunito Sans', sans-serif; background: #f0eeff; min-height: 
 .vote-progress { font-size: 10px; color: #aaa; font-weight: 700; }
 
 /* ══ LEADERBOARD ══ */
-.lb-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 12px; border-bottom: 1px solid rgba(0,0,0,0.05); position: sticky; top: 0; background: white; z-index: 5; border-radius: 22px 22px 0 0; }
-.lb-title { font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 800; color: #1a1a2e; }
+.lb-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 12px; border-bottom: 1px solid #2a2a2a; position: sticky; top: 0; background: #161616; z-index: 5; border-radius: 2px 2px 0 0; }
+.lb-title { font-family: 'Oswald', sans-serif; font-size: 15px; font-weight: 600; color: #c8a92a; letter-spacing: 0.12em; text-transform: uppercase; }
 .sort-btns { display: flex; gap: 6px; }
-.sort-btn { font-size: 10px; font-weight: 700; padding: 4px 11px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.12); background: none; color: #777; cursor: pointer; font-family: 'Nunito Sans', sans-serif; transition: all 0.15s; }
-.sort-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
+.sort-btn { font-family: 'Share Tech Mono', monospace; font-size: 9px; padding: 4px 10px; border-radius: 1px; border: 1px solid #333; background: none; color: #555; cursor: pointer; letter-spacing: 0.08em; transition: all 0.15s; }
+.sort-btn.active { background: #c8a92a; color: #000; border-color: #c8a92a; }
 
 /* ══ CARDS ══ */
-.cards { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 7px; }
-.card { background: #fafafa; border-radius: 16px; padding: 12px 14px; border: 1px solid rgba(0,0,0,0.05); display: grid; grid-template-columns: 44px 1fr auto; gap: 0 11px; align-items: center; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
-.card:hover { transform: translateY(-1px); box-shadow: 0 5px 20px rgba(0,0,0,0.07); }
-.card.danger-card { background: rgba(239,68,68,0.05); border-color: rgba(239,68,68,0.2); }
-.card.warn-card { background: rgba(245,158,11,0.05); border-color: rgba(245,158,11,0.18); }
-.card.you-card { background: linear-gradient(135deg,rgba(255,107,157,0.06),rgba(168,85,247,0.06)); border: 1.5px solid rgba(168,85,247,0.28); }
-.avatar { width: 44px; height: 44px; border-radius: 13px; object-fit: cover; flex-shrink: 0; display: block; }
-.avatar-fallback { width: 44px; height: 44px; border-radius: 13px; background: linear-gradient(135deg,#a855f7,#ff6b9d); display: flex; align-items: center; justify-content: center; font-family: 'Nunito',sans-serif; font-size: 17px; font-weight: 900; color: white; flex-shrink: 0; }
+.cards { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 6px; }
+.card { background: #111; border-radius: 1px; padding: 12px 14px; border: 1px solid #1e1e1e; border-left: 3px solid #2a2a2a; display: grid; grid-template-columns: 44px 1fr auto; gap: 0 11px; align-items: center; cursor: pointer; transition: border-color 0.2s; }
+.card:hover { border-left-color: #c8a92a; }
+.card.danger-card { background: rgba(139,0,0,0.08); border-color: #2a0808; border-left-color: #8b0000; }
+.card.warn-card { background: rgba(100,60,0,0.1); border-color: #221500; border-left-color: #664400; }
+.card.you-card { background: rgba(200,169,42,0.06); border: 1px solid #2a2200; border-left: 3px solid #c8a92a; }
+.card.dissident-card { background: rgba(120,0,0,0.1); border: 1px solid #2a0000; border-left: 3px solid #660000; }
+.card.agitator-card { background: rgba(160,0,0,0.14); border: 1px solid #440000; border-left: 3px solid #cc0000; animation: agitatorPulse 2.5s ease-in-out infinite; }
+@keyframes agitatorPulse { 0%,100%{border-left-color:#aa0000} 50%{border-left-color:#ff2222} }
+.avatar { width: 44px; height: 44px; border-radius: 1px; object-fit: cover; flex-shrink: 0; display: block; }
+.avatar-fallback { width: 44px; height: 44px; border-radius: 1px; background: #2a2a2a; display: flex; align-items: center; justify-content: center; font-family: 'Oswald',sans-serif; font-size: 17px; font-weight: 600; color: #444; flex-shrink: 0; }
 .card-main { min-width: 0; }
 .card-name-row { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; margin-bottom: 4px; }
-.card-name { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; color: #1a1a2e; }
+.card-name { font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 500; color: #bbb; letter-spacing: 0.06em; text-transform: uppercase; }
 .flag { font-size: 13px; }
-.tag { font-size: 8px; font-weight: 800; padding: 2px 6px; border-radius: 7px; letter-spacing: 0.04em; flex-shrink: 0; }
-.you-tag { background: linear-gradient(135deg,#ff6b9d,#a855f7); color: white; }
-.danger-tag { background: #ef4444; color: white; }
-.warn-tag { background: #f59e0b; color: white; }
-.new-tag { background: linear-gradient(135deg,#22c55e,#16a34a); color: white; }
-.vibe-tag { font-size: 8px; font-weight: 700; padding: 2px 6px; border-radius: 7px; background: #f0ebff; color: #7c3aed; }
+.tag { font-family: 'Share Tech Mono', monospace; font-size: 7px; padding: 2px 5px; border-radius: 1px; letter-spacing: 0.08em; flex-shrink: 0; text-transform: uppercase; }
+.you-tag { background: #c8a92a; color: #000; }
+.danger-tag { background: #5a0000; color: #ff8888; border: 1px solid #8b0000; }
+.warn-tag { background: #3a2000; color: #cc9900; border: 1px solid #664400; }
+.new-tag { background: #0a2a0a; color: #449944; border: 1px solid #1a441a; }
+.vibe-tag { font-family: 'Share Tech Mono', monospace; font-size: 7px; padding: 2px 5px; border-radius: 1px; background: #1a1a1a; color: #444; border: 1px solid #252525; }
+.dissident-tag { font-family: 'Share Tech Mono', monospace; font-size: 7px; padding: 2px 5px; border-radius: 1px; background: #2a0000; color: #cc4444; border: 1px solid #550000; text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
+.agitator-tag { font-family: 'Share Tech Mono', monospace; font-size: 7px; padding: 2px 5px; border-radius: 1px; background: #440000; color: #ff4444; border: 1px solid #880000; text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
 .mini-stats { display: flex; gap: 9px; flex-wrap: wrap; }
-.mini-stat { display: flex; align-items: center; gap: 2px; font-size: 10px; color: #888; font-weight: 600; }
+.mini-stat { font-family: 'Share Tech Mono', monospace; display: flex; align-items: center; gap: 2px; font-size: 9px; color: #3a3a3a; }
 .score-col { text-align: right; flex-shrink: 0; }
-.score-num { font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; line-height: 1; }
-.score-label { font-size: 9px; color: #bbb; font-weight: 600; margin-top: 1px; text-transform: uppercase; letter-spacing: 0.05em; }
-.score-elite { color: #c8a92a; } .score-good { color: #22c55e; } .score-warn { color: #f59e0b; } .score-danger { color: #ef4444; }
-.score-bar-wrap { grid-column: 1 / -1; margin-top: 8px; height: 3px; background: #f0f0f0; border-radius: 2px; overflow: hidden; }
-.score-bar { height: 100%; border-radius: 2px; transition: width 0.6s; }
+.score-num { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; line-height: 1; }
+.score-label { font-family: 'Share Tech Mono', monospace; font-size: 8px; color: #3a3a3a; margin-top: 1px; text-transform: uppercase; letter-spacing: 0.08em; }
+.score-elite { color: #c8a92a; } .score-good { color: #4a8a4a; } .score-warn { color: #886600; } .score-danger { color: #aa2222; }
+.score-bar-wrap { grid-column: 1 / -1; margin-top: 8px; height: 2px; background: #1a1a1a; border-radius: 0; overflow: hidden; }
+.score-bar { height: 100%; border-radius: 0; transition: width 0.6s; }
 .zone-divider { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
-.div-line { flex: 1; height: 1.5px; background: repeating-linear-gradient(90deg, currentColor 0, currentColor 5px, transparent 5px, transparent 10px); opacity: 0.4; }
-.div-label { font-size: 9px; font-weight: 800; padding: 3px 9px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.05em; text-transform: uppercase; }
-.div-danger { color: #ef4444; border: 1px solid rgba(239,68,68,0.28); background: #fff5f5; }
-.div-warn { color: #f59e0b; border: 1px solid rgba(245,158,11,0.22); background: #fffbf0; }
+.div-line { flex: 1; height: 1px; background: currentColor; opacity: 0.2; }
+.div-label { font-family: 'Share Tech Mono', monospace; font-size: 8px; padding: 3px 9px; border-radius: 1px; white-space: nowrap; letter-spacing: 0.1em; text-transform: uppercase; }
+.div-danger { color: #aa2222; border: 1px solid #330000; background: #0a0000; }
+.div-warn { color: #886600; border: 1px solid #2a1a00; background: #080500; }
+.div-dissident { color: #880000; border: 1px solid #330000; background: #0a0000; }
 
-/* ══ MVP ══ */
-.mvp-card { border-radius: 22px; padding: 20px; background: linear-gradient(135deg, #fff9e6 0%, #fef3c7 100%); border: 1.5px solid rgba(200,169,42,0.3); position: relative; overflow: hidden; }
-.mvp-card::before { content: '👑'; position: absolute; right: -6px; bottom: -10px; font-size: 80px; opacity: 0.12; line-height: 1; }
+/* ══ DECREE CARD (MVP) ══ */
+.mvp-card { border-radius: 2px; padding: 20px; background: #0d0800; border: 1px solid #c8a92a; position: relative; overflow: hidden; }
+.mvp-card::before { content: ''; position: absolute; right: 10px; bottom: -15px; width: 90px; height: 90px; background: url('images/dan.png') center/cover; border-radius: 50%; opacity: 0.08; }
 .mvp-header { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; }
-.mvp-label { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #92400e; }
-.mvp-week { font-size: 10px; color: #b45309; opacity: 0.7; font-weight: 600; }
+.mvp-label { font-family: 'Oswald', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #c8a92a; }
+.mvp-week { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: #664400; opacity: 0.8; }
 .mvp-body { display: flex; align-items: center; gap: 14px; }
-.mvp-avatar { width: 56px; height: 56px; border-radius: 16px; object-fit: cover; flex-shrink: 0; border: 2px solid rgba(200,169,42,0.4); }
-.mvp-avatar-fallback { width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, #f59e0b, #d97706); display: flex; align-items: center; justify-content: center; font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; color: white; flex-shrink: 0; }
-.mvp-name { font-family: 'Nunito', sans-serif; font-size: 20px; font-weight: 900; color: #78350f; margin-bottom: 3px; }
-.mvp-reason { font-size: 12px; color: #92400e; font-weight: 600; line-height: 1.5; }
+.mvp-avatar { width: 56px; height: 56px; border-radius: 1px; object-fit: cover; flex-shrink: 0; border: 2px solid #c8a92a; }
+.mvp-avatar-fallback { width: 56px; height: 56px; border-radius: 1px; background: #2a1a00; display: flex; align-items: center; justify-content: center; font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: #c8a92a; flex-shrink: 0; }
+.mvp-name { font-family: 'Oswald', sans-serif; font-size: 20px; font-weight: 700; color: #c8a92a; margin-bottom: 3px; letter-spacing: 0.08em; }
+.mvp-reason { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: #886600; font-weight: 400; line-height: 1.6; }
 .mvp-stats { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
-.mvp-stat { background: rgba(245,158,11,0.15); border-radius: 8px; padding: 4px 9px; font-size: 11px; font-weight: 700; color: #92400e; }
+.mvp-stat { background: rgba(200,169,42,0.08); border: 1px solid rgba(200,169,42,0.2); border-radius: 1px; padding: 4px 9px; font-family: 'Share Tech Mono', monospace; font-size: 10px; color: #c8a92a; }
 
 /* ══ GRAVEYARD ══ */
 .graveyard { background: #1e1b2e; border-radius: 22px; padding: 18px 20px; color: white; position: relative; }
@@ -174,10 +180,10 @@ body { font-family: 'Nunito Sans', sans-serif; background: #f0eeff; min-height: 
 /* ══ MODAL ══ */
 .modal-overlay { position: fixed; inset: 0; background: rgba(10,5,25,0.6); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.open { display: flex; }
-.modal { background: white; width: 100%; max-width: 440px; max-height: 90vh; border-radius: 28px; overflow: hidden; animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1); position: relative; display: flex; flex-direction: column; }
-.modal-inner { padding: 20px 22px 30px; overflow-y: auto; flex: 1; scrollbar-width: none; }
+.modal { background: white; width: 100%; max-width: 440px; max-height: 90vh; border-radius: 28px; overflow: visible; animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1); position: relative; display: flex; flex-direction: column; }
+.modal-inner { padding: 20px 22px 30px; overflow-y: auto; flex: 1; scrollbar-width: none; border-radius: 28px; }
 .modal-inner::-webkit-scrollbar { display: none; }
-@media (max-width: 720px) { .modal-overlay { align-items: flex-end; padding: 0; } .modal { max-width: 100%; border-radius: 28px 28px 0 0; max-height: 88vh; } }
+@media (max-width: 720px) { .modal-overlay { align-items: flex-end; padding: 0; } .modal { max-width: 100%; border-radius: 28px 28px 0 0; max-height: 88vh; } .modal-inner { border-radius: 0; } }
 @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 .modal-handle { width: 36px; height: 4px; background: #e8e8e8; border-radius: 2px; margin: 14px auto 0; display: none; }
 @media (max-width: 720px) { .modal-handle { display: block; } }
@@ -193,11 +199,12 @@ body { font-family: 'Nunito Sans', sans-serif; background: #f0eeff; min-height: 
 .modal-stat { background: #f8f5ff; border-radius: 14px; padding: 11px; }
 .modal-stat-val { font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 900; color: #1a1a2e; }
 .modal-stat-label { font-size: 10px; color: #999; font-weight: 600; margin-top: 2px; }
+/* Charts side by side, each fully self-contained */
 .modal-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-.chart-card { background: #f8f5ff; border-radius: 16px; padding: 13px 13px 16px; }
-.chart-title { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 800; color: #666; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px; }
-.chart-wrap { position: relative; height: 150px; width: 100%; }
-.chart-pct { text-align: center; margin-top: 8px; font-family: 'Nunito',sans-serif; font-size: 20px; font-weight: 900; color: #1a1a2e; }
+.chart-card { background: #f8f5ff; border-radius: 16px; padding: 13px; display: flex; flex-direction: column; }
+.chart-title { font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 800; color: #666; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; flex-shrink: 0; }
+.chart-wrap { position: relative; width: 100%; height: 130px; }
+.chart-pct { text-align: center; margin-top: 8px; font-family: 'Nunito',sans-serif; font-size: 20px; font-weight: 900; color: #1a1a2e; flex-shrink: 0; }
 .modal-note { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.18); border-radius: 13px; padding: 11px 13px; font-size: 12px; color: #c0392b; line-height: 1.5; font-weight: 600; }
 .modal-note-good { background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.18); border-radius: 13px; padding: 11px 13px; font-size: 12px; color: #166534; line-height: 1.5; font-weight: 600; }
 
@@ -249,6 +256,57 @@ body { font-family: 'Nunito Sans', sans-serif; background: #f0eeff; min-height: 
 .welcome-btn.ready { opacity: 1; pointer-events: all; }
 .welcome-btn.ready:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(168,85,247,0.3); }
 
+/* ══ ENTRY ANIMATIONS ══ */
+
+/* Sidebar panels fly in from left, staggered */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Leaderboard cards drop in from right */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Gentle pop for cards */
+@keyframes popUp {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Score bar fill animation — driven by JS via CSS variable */
+@keyframes barFill {
+  from { width: 0%; }
+  to   { width: var(--bar-target); }
+}
+
+.sidebar.animate > * { opacity: 0; }
+.sidebar.animate > *:nth-child(1)  { animation: slideInLeft 0.45s cubic-bezier(0.22,1,0.36,1) 0.05s both; }
+.sidebar.animate > *:nth-child(2)  { animation: slideInLeft 0.45s cubic-bezier(0.22,1,0.36,1) 0.10s both; }
+.sidebar.animate > *:nth-child(3)  { animation: slideInLeft 0.45s cubic-bezier(0.22,1,0.36,1) 0.15s both; }
+.sidebar.animate > *:nth-child(4)  { animation: slideInLeft 0.45s cubic-bezier(0.22,1,0.36,1) 0.20s both; }
+.sidebar.animate > *:nth-child(5)  { animation: slideInLeft 0.45s cubic-bezier(0.22,1,0.36,1) 0.25s both; }
+.sidebar.animate > *:nth-child(6)  { animation: slideInLeft 0.45s cubic-bezier(0.22,1,0.36,1) 0.30s both; }
+.sidebar.animate > *:nth-child(7)  { animation: slideInLeft 0.45s cubic-bezier(0.22,1,0.36,1) 0.35s both; }
+.sidebar.animate > *:nth-child(8)  { animation: slideInLeft 0.45s cubic-bezier(0.22,1,0.36,1) 0.40s both; }
+.sidebar.animate > *:nth-child(9)  { animation: slideInLeft 0.45s cubic-bezier(0.22,1,0.36,1) 0.45s both; }
+.sidebar.animate > *:nth-child(10) { animation: slideInLeft 0.45s cubic-bezier(0.22,1,0.36,1) 0.50s both; }
+
+.main.animate > * { opacity: 0; animation: slideInRight 0.5s cubic-bezier(0.22,1,0.36,1) 0.1s both; }
+
+/* Individual leaderboard cards animate in with cascade */
+.card.anim {
+  animation: popUp 0.4s cubic-bezier(0.34,1.3,0.64,1) both;
+}
+
+/* Score bars animate fill after card appears */
+.score-bar.anim {
+  animation: barFill 0.8s cubic-bezier(0.22,1,0.36,1) both;
+  width: var(--bar-target) !important;
+}
+
 /* ══ DANGER STATE ══ */
 body.danger-user::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 500; box-shadow: inset 0 0 80px rgba(239,68,68,0.25), inset 0 0 20px rgba(239,68,68,0.1); border: 3px solid rgba(239,68,68,0.3); animation: dangerPulse 3s ease-in-out infinite; }
 @keyframes dangerPulse { 0%,100%{box-shadow:inset 0 0 80px rgba(239,68,68,0.2),inset 0 0 20px rgba(239,68,68,0.08)} 50%{box-shadow:inset 0 0 100px rgba(239,68,68,0.35),inset 0 0 30px rgba(239,68,68,0.15)} }
@@ -262,104 +320,105 @@ body.danger-user::after { content: ''; position: fixed; inset: 0; pointer-events
 <!-- WELCOME -->
 <div class="welcome-screen" id="welcome-screen">
   <div class="welcome-brand">
-    <div class="welcome-brand-icon">👥</div>
-    <div class="welcome-brand-name">fwens</div>
+    <div class="welcome-brand-icon">👑</div>
+    <div class="welcome-brand-name">The Regime</div>
   </div>
-  <div class="welcome-title">Who are you? 👀</div>
-  <div class="welcome-sub">Pick yourself from the list to get your personalised view</div>
+  <div class="welcome-title">Identify yourself, citizen</div>
+  <div class="welcome-sub">Select your citizen profile to access your loyalty dossier</div>
   <div class="member-grid" id="member-grid"></div>
-  <button class="welcome-btn" id="welcome-btn" onclick="enterApp()">Let me in →</button>
+  <button class="welcome-btn" id="welcome-btn" onclick="enterApp()">Access dossier →</button>
 </div>
 
 <!-- ════════════════════════════════════════════
      EDIT YOUR DATA HERE
 ════════════════════════════════════════════ -->
 <script>
+const DISSIDENTS = ["Frida","Christy","David","Sef","Lovisa","Youri","Mandy","Miguel"];
+const MAIN_AGITATOR = "Christy";
+
 const MEMBERS = [
   { name:"Dan",    img:"images/dan.png",    flag:"🇬🇧", gender:"m", you:true,
-    score:97, eventAtt:95, respTime:"2 min",   leftOnRead:2,   jokeLanded:94,
-    vibes:["Main character","Always first to reply","Really Funny"],
-    note:"Consistently leading the group. An inspiration to all fwens." },
-  { name:"Christy",img:"images/christy.png",flag:"🇿🇦", gender:"f",
-    score:88, eventAtt:88, respTime:"8 min",   leftOnRead:7,   jokeLanded:81,
-    vibes:["Hype person","Owns industrial coffee machine"],
-    note:"Solid performer. Carries the vibe on slow days." },
+    score:100, eventAtt:100, respTime:"Instant", leftOnRead:0, jokeLanded:100,
+    vibes:["Supreme Leader","Above the metrics","All hail"],
+    note:"THE KING. Metrics do not apply. Long may he reign." },
   { name:"Emma",   img:"images/emma.png",   flag:"🇧🇪", gender:"f",
     score:83, eventAtt:82, respTime:"14 min",  leftOnRead:11,  jokeLanded:76,
-    vibes:["Always positive!","Learning Swedish"],
-    note:"Reliable and funny. Could reply a bit faster." },
+    vibes:["Loyal subject","Learning the doctrine"],
+    note:"Reliable and compliant. Continues to serve the Regime faithfully." },
   { name:"Steph",  img:"images/steph.png",  flag:"🇬🇧", gender:"f",
     score:79, eventAtt:80, respTime:"22 min",  leftOnRead:18,  jokeLanded:71,
-    vibes:["Late responder","Always shows up tho"],
-    note:"Good attendance but the ghosting is noted." },
-  { name:"Steacy", img:"images/steacy.png", flag:"🇨🇦", gender:"f",
-    score:20, eventAtt:0,  respTime:"35 min",  leftOnRead:22,  jokeLanded:1,
-    vibes:["Lurker","Literally never comes to anything"],
-    note:"Mid-tier engagement. We believe in you." },
+    vibes:["Arrives eventually","Tardiness noted in file"],
+    note:"Attendance adequate. Delayed compliance is still compliance." },
   { name:"Niamh",  img:"images/niamh.png",  flag:"🇮🇪", gender:"f",
     score:71, eventAtt:72, respTime:"48 min",  leftOnRead:25,  jokeLanded:65,
-    vibes:["Adds drama unintentionally","Good Craic"] },
-  { name:"Miguel", img:"images/miguel.png", flag:"🇵🇹", gender:"m",
-    score:35, eventAtt:28, respTime:"1.5 hrs", leftOnRead:33,  jokeLanded:59,
-    vibes:["Not mediterranean","New girlfriend"],
-    note:"Engagement trending downward. Warning issued." },
-  { name:"Frida",  img:"images/frida.png",  flag:"🇩🇪", gender:"f",
-    score:62, eventAtt:60, respTime:"2 hrs",   leftOnRead:38,  jokeLanded:54,
-    vibes:["Selective participation","Muted us probably"] },
+    vibes:["Unintentional disruptor","Cleared of wrongthink"] },
+  { name:"Steacy", img:"images/steacy.png", flag:"🇨🇦", gender:"f",
+    score:20, eventAtt:0,  respTime:"35 min",  leftOnRead:22,  jokeLanded:1,
+    vibes:["Never attends rallies","Absence is treason"],
+    note:"Zero rally attendance logged. File escalated to Ministry of Participation." },
   { name:"Bea",    img:"images/bea.png",    flag:"🇵🇹", gender:"f",
     score:58, eventAtt:55, respTime:"3 hrs",   leftOnRead:44,  jokeLanded:50,
-    vibes:["Seen but not heard","Professional lurker"] },
+    vibes:["Silent but present","Loyalty unverified"] },
   { name:"Linn",   img:"images/linn.png",   flag:"🇫🇮", gender:"f",
     score:54, eventAtt:52, respTime:"4 hrs",   leftOnRead:50,  jokeLanded:46,
-    vibes:["Half engaged","Reacts 3 days later"] },
+    vibes:["Delayed obedience","Reacts three days later"] },
   { name:"Parker", img:"images/parker.png", flag:"🇺🇸", gender:"m",
     score:50, eventAtt:48, respTime:"6 hrs",   leftOnRead:57,  jokeLanded:42,
-    vibes:["Time zone excuse","Never starts convos"] },
+    vibes:["Claims time zone exemption","Exemption denied"] },
   { name:"Ksenia", img:"images/ksenia.png", flag:"🇷🇺", gender:"f",
     score:46, eventAtt:44, respTime:"9 hrs",   leftOnRead:63,  jokeLanded:38,
-    vibes:["Ghost mode: on","Opens, doesn't reply"] },
-  { name:"Mandy",  img:"images/mandy.png",  flag:"🇫🇮", gender:"f",
-    score:63, eventAtt:40, respTime:"12 hrs",  leftOnRead:71,  jokeLanded:34,
-    vibes:["Occasional cameo","Breezes in then vanishes"] },
-  { name:"Lovisa", img:"images/lovisa.png", flag:"🇸🇪", gender:"f", newMember:true,
-    score:48, eventAtt:44, respTime:"18 hrs",  leftOnRead:80,  jokeLanded:29,
-    vibes:["Still finding her feet","Give her time"],
-    note:"🛡️ Newly added — immunity period active. Score not yet counted towards removal." },
-  { name:"Anton",  img:"images/anton.png",  flag:"🇸🇪", gender:"m", newMember:true,
-    score:45, eventAtt:38, respTime:"1 day",   leftOnRead:88,  jokeLanded:25,
-    vibes:["New here","Still learning the lore"],
-    note:"🛡️ Newly added — immunity period active. Score not yet counted towards removal." },
-  { name:"David",  img:"images/david.png",  flag:"🇬🇧", gender:"m",
-    score:29, eventAtt:24, respTime:"2 days",  leftOnRead:104, jokeLanded:18,
-    vibes:["Are you even alive?","Seen 2 days ago"],
-    note:"Sustained inactivity detected. Final warning before escalation." },
-  { name:"Youri",  img:"images/youri.png",  flag:"🇳🇱", gender:"m",
-    score:21, eventAtt:16, respTime:"3 days",  leftOnRead:121, jokeLanded:12,
-    vibes:["Left the country mentally","Peak ghost"],
-    note:"Critical engagement failure. Removal review in progress." },
+    vibes:["Opens dispatches, ignores them","Ghost operative"] },
   { name:"Pål",    img:"images/pal.png",    flag:"🇳🇴", gender:"m",
     score:14, eventAtt:9,  respTime:"5 days",  leftOnRead:139, jokeLanded:7,
-    vibes:["We miss you Pål","Signal: none"],
-    note:"Profile flagged. Last active status: unknown." },
-  { name:"Sef",    img:"images/sef.png",    flag:"🇸🇪", gender:"f",
-    score:52, eventAtt:4,  respTime:"1 week",  leftOnRead:158, jokeLanded:3,
-    vibes:["Theoretical member","A myth"],
-    note:"Effectively a ghost. Removal imminent." },
-  { name:"Adrian", img:"images/adrian.png", flag:"🇷🇴", gender:"m",
-    score:50, eventAtt:10,  respTime:"1 week",  leftOnRead:122, jokeLanded:6,
-    vibes:["He's around","A myth"],
-    note:"Effectively a ghost. Removal imminent." },
-  { name:"Louise", img:"images/louise.png", flag:"🇫🇷", gender:"f",
-    score:49, eventAtt:7,  respTime:"2 week",  leftOnRead:200, jokeLanded:3,
-    vibes:["Who?","A myth"] },
+    vibes:["Signal lost","Last known location: unknown"],
+    note:"Subject has gone dark. Whereabouts unknown. Presumed defected." },
+  { name:"Adrian", img:"images/Adrian.png", flag:"🇷🇴", gender:"m",
+    score:52, eventAtt:4,  respTime:"1 week",  leftOnRead:122, jokeLanded:6,
+    vibes:["Theoretical citizen","Existence unconfirmed"],
+    note:"Presence unverified. May be a rumour." },
+  // — DISSIDENTS —
+  { name:"Christy",img:"images/christy.png",flag:"🇿🇦", gender:"f", dissident:true, agitator:true,
+    score:22, eventAtt:88, respTime:"8 min",   leftOnRead:7,   jokeLanded:81,
+    vibes:["Main agitator","Incites the masses","Owns suspicious coffee machine"],
+    note:"⚠️ MAIN AGITATOR. Flagged for organised dissent. Charming exterior masks subversive agenda. Under active surveillance." },
+  { name:"Frida",  img:"images/frida.png",  flag:"🇩🇪", gender:"f", dissident:true,
+    score:18, eventAtt:60, respTime:"2 hrs",   leftOnRead:38,  jokeLanded:54,
+    vibes:["Selective compliance","Likely has an underground newsletter"] },
+  { name:"David",  img:"images/david.png",  flag:"🇬🇧", gender:"m", dissident:true,
+    score:29, eventAtt:24, respTime:"2 days",  leftOnRead:104, jokeLanded:18,
+    vibes:["Absent without leave","Music a cry for help"],
+    note:"Sustained desertion. Music activities are being monitored." },
+  { name:"Sef",    img:"images/sef.png",    flag:"🇸🇪", gender:"f", dissident:true,
+    score:11, eventAtt:4,  respTime:"1 week",  leftOnRead:158, jokeLanded:3,
+    vibes:["A ghost","Possibly never existed"],
+    note:"Dissident status assigned in absentia. Cannot be reached for comment." },
+  { name:"Lovisa", img:"images/lovisa.png", flag:"🇸🇪", gender:"f", dissident:true, newMember:true,
+    score:15, eventAtt:44, respTime:"18 hrs",  leftOnRead:80,  jokeLanded:29,
+    vibes:["New recruit — allegiance unclear","Observed fraternising with dissidents"],
+    note:"🛡️ Provisional citizen. Immunity period active. Dissident associations noted in file." },
+  { name:"Youri",  img:"images/youri.png",  flag:"🇳🇱", gender:"m", dissident:true,
+    score:21, eventAtt:16, respTime:"3 days",  leftOnRead:121, jokeLanded:12,
+    vibes:["Mentally emigrated","Files ignored"],
+    note:"Critical loyalty failure. Removal tribunal scheduled." },
+  { name:"Mandy",  img:"images/mandy.png",  flag:"🇫🇮", gender:"f", dissident:true,
+    score:19, eventAtt:40, respTime:"12 hrs",  leftOnRead:71,  jokeLanded:34,
+    vibes:["Occasional cameo","Appears, destabilises, vanishes"] },
+  { name:"Miguel", img:"images/miguel.png", flag:"🇵🇹", gender:"m", dissident:true,
+    score:14, eventAtt:28, respTime:"1.5 hrs", leftOnRead:33,  jokeLanded:59,
+    vibes:["Jokes not regime-approved","New girlfriend suspected of influence"],
+    note:"Loyalty compromised. Engagement plummeting. Pending loyalty tribunal." },
+  { name:"Anton",  img:"images/anton.png",  flag:"🇸🇪", gender:"m", newMember:true,
+    score:45, eventAtt:38, respTime:"1 day",   leftOnRead:88,  jokeLanded:25,
+    vibes:["New recruit","Doctrine orientation in progress"],
+    note:"🛡️ Provisional citizen. Immunity period active. Monitoring continues." },
 ];
 
 const GRAVEYARD = [
-  { name:"Poppy",   img:"images/poppy.png",   reason:"Never replied" },
-  { name:"Angie",   img:"images/angie.png",   reason:"0% attendance" },
-  { name:"Phillip", img:"images/phillip.png", reason:"Left on read ×47" },
-  { name:"Alex",    img:"images/alex.png",    reason:"Score: 3" },
-  { name:"Zorro",   img:"images/zorro.png",   reason:"🤫" },
+  { name:"Poppy",   img:"images/poppy.png",   reason:"Defected" },
+  { name:"Angie",   img:"images/angie.png",   reason:"0% rally attendance" },
+  { name:"Phillip", img:"images/phillip.png", reason:"47 ignored dispatches" },
+  { name:"Alex",    img:"images/alex.png",    reason:"Loyalty score: 3" },
+  { name:"Zorro",   img:"images/zorro.png",   reason:"Classified" },
 ];
 
 const kickVotes = {
@@ -368,69 +427,53 @@ const kickVotes = {
   "Youri":  { yes:14, no:1, myVote:null },
   "Pål":    { yes:18, no:0, myVote:null },
   "Steacy": { yes:9,  no:1, myVote:null },
+  "Christy":{ yes:22, no:0, myVote:null },
 };
 
 const POLLS = [
-  { q:"How funny was Miguel this week?",
-    options:["💀 Actually died laughing","😂 Pretty good","😐 Tried his best","😬 The jokes did not land"],
-    votes:[14,31,28,48] },
-  { q:"Did Christy make you feel welcome at the last event?",
-    options:["🥰 Absolutely, queen behaviour","👍 Yeah she was great","😶 She was there I think","❓ What event"],
-    votes:[52,29,10,30] },
-  { q:"Who sent the best meme this week?",
-    options:["👑 Dan obviously","🔥 Emma absolutely cooked","🤷 Steph's was mid but effort","📵 No good memes this week"],
-    votes:[61,33,12,8] },
-  { q:"How would you rate Youri's group chat presence?",
-    options:["👻 What is a Youri","🦗 Crickets","😴 Occasional like, nothing more","😮 Actually showed up once"],
-    votes:[74,32,10,5] },
-  { q:"Should Pål be given one last chance?",
-    options:["🙏 Yes, we believe","⚖️ Only if he replies now","🚪 The door is closing","🪦 Too late"],
-    votes:[8,15,29,69] },
+  { q:"Is Christy's 'coffee machine' a resistance communications device?",
+    options:["☕ Obviously yes","🕵️ Probably","🙄 She claims it's espresso","🤐 Advised not to answer"],
+    votes:[44,31,8,38] },
+  { q:"Should Miguel's joke privileges be revoked?",
+    options:["⛔ Yes — never funny","📋 Pending tribunal review","😬 One more chance","🃏 Regime-approved satire"],
+    votes:[48,22,14,8] },
+  { q:"Is Pål still alive?",
+    options:["🪦 Almost certainly not","👻 He is a ghost now","🙏 Yes and we miss him","📡 Signal will return"],
+    votes:[39,44,8,3] },
+  { q:"Rate David's commitment to the Regime:",
+    options:["🎸 Distracted by music","📵 Effectively AWOL","🤔 Possibly undercover","🫡 Loyal in spirit only"],
+    votes:[51,29,10,5] },
+  { q:"Should Christy be allowed to denounce her dissident activities?",
+    options:["🚫 No. She knows what she did.","⚖️ Public tribunal first","🎤 Let her speak","🏃 She'll just organise more"],
+    votes:[62,18,8,44] },
 ];
 
 /* ─────────────────────────────────
-   RECENT EVENTS — edit here
-   status: "happened" | "cancelled"
-   reason: shown in italics (optional)
+   OPERATIONS LOG — edit here
 ───────────────────────────────── */
 const EVENTS = [
-  {
-    name: "Ceilidh",
-    date: "28 March",
-    emoji: "🪩",
-    status: "cancelled",
-    reason: "Called off due to sickness — get well soon everyone 🤧"
-  },
-  {
-    name: "Hangout",
-    date: "26 March",
-    emoji: "🛋️",
-    status: "cancelled",
-    reason: "Also cancelled — half the group was ill 🤒"
-  },
-  {
-    name: "Miguel's Birthday Bash",
-    date: "21 March",
-    emoji: "🎂",
-    status: "happened",
-    reason: "Great turnout. Cake was consumed. Miguel was delighted."
-  },
+  { name:"Ceilidh — CANCELLED", date:"28 March", emoji:"🪩", status:"cancelled",
+    reason:"Sabotage suspected. Dissident coordination possible." },
+  { name:"Rally — CANCELLED", date:"26 March", emoji:"📢", status:"cancelled",
+    reason:"Insufficient attendance projected. Operation stood down." },
+  { name:"Miguel's Birthday Summit", date:"21 March", emoji:"🎂", status:"happened",
+    reason:"Strong turnout. No seditious speeches. Cake consumed." },
 ];
 
 const MVP = {
-  name: "Christy",
-  img:  "images/christy.png",
-  flag: "🇿🇦",
-  reason: "Made two banger jokes in the chat, welcomed a new member, and hosted Dan on her sofa. Absolute legend behaviour.",
-  stats: ["💬 312 messages", "❤️ Most reacts given"],
-  week: "Week of 31 March"
+  name: "Emma",
+  img:  "images/emma.png",
+  flag: "🇧🇪",
+  reason: "Exemplary loyalty. Responded to all dispatches promptly. Attended all mandatory gatherings. Zero dissident associations on file.",
+  stats: ["📨 100% dispatch rate", "🫡 Zero demerits"],
+  week: "Loyalty Cycle 31 March"
 };
 </script>
 
 <!-- DANGER BADGE -->
 <div class="danger-badge" id="danger-badge">
   <div class="danger-badge-dot"></div>
-  ⚠️ Your score is in the danger zone — removal risk
+  ⚠ LOW LOYALTY SCORE — TRIBUNAL IMMINENT
 </div>
 
 <!-- APP -->
@@ -438,43 +481,43 @@ const MVP = {
   <div class="sidebar">
 
     <div class="sidebar-brand panel" style="padding:16px 20px;">
-      <div class="brand"><div class="brand-icon">👥</div><div class="brand-name">fwens</div></div>
-      <div class="live-chip"><div class="live-dot"></div> Live</div>
+      <div class="brand"><div class="brand-icon">👑</div><div class="brand-name">The Regime</div></div>
+      <div class="live-chip"><div class="live-dot"></div> Monitoring</div>
     </div>
     <div class="topbar">
-      <div class="brand"><div class="brand-icon">👥</div><div class="brand-name">fwens</div></div>
-      <div class="live-chip"><div class="live-dot"></div> Live</div>
+      <div class="brand"><div class="brand-icon">👑</div><div class="brand-name">The Regime</div></div>
+      <div class="live-chip"><div class="live-dot"></div> Monitoring</div>
     </div>
 
     <div class="hero">
-      <div class="hero-label">Group Activity Score</div>
-      <div class="hero-title">See who's keeping up 👀</div>
+      <div class="hero-label">Citizen Loyalty Bureau</div>
+      <div class="hero-title">All citizens are being watched 👁</div>
       <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-val" id="hero-total">—</div><div class="hero-stat-label">Members</div></div>
-        <div class="hero-stat"><div class="hero-stat-val" id="hero-danger">—</div><div class="hero-stat-label">At Risk 🚨</div></div>
-        <div class="hero-stat"><div class="hero-stat-val" id="hero-avg">—</div><div class="hero-stat-label">Avg Score</div></div>
+        <div class="hero-stat"><div class="hero-stat-val" id="hero-total">—</div><div class="hero-stat-label">Citizens</div></div>
+        <div class="hero-stat"><div class="hero-stat-val" id="hero-danger">—</div><div class="hero-stat-label">Dissidents 🔴</div></div>
+        <div class="hero-stat"><div class="hero-stat-val" id="hero-avg">—</div><div class="hero-stat-label">Avg Loyalty</div></div>
       </div>
     </div>
 
     <div class="danger-alert">
-      <div class="alert-emoji">🚨</div>
+      <div class="alert-emoji"><img src="images/dan.png" style="width:28px;height:28px;border-radius:50%;border:1px solid #c8a92a;object-fit:cover;vertical-align:middle;" onerror="this.outerHTML='👑'"></div>
       <div>
-        <div class="alert-title">Removal Warning Active</div>
-        <div class="alert-text">Members in the <strong>danger zone</strong> (score &lt;42) for 14+ days face automatic removal. <strong>Newly added</strong> members have a 30-day immunity.</div>
+        <div class="alert-title">Active Dissident Alert</div>
+        <div class="alert-text">Citizens with loyalty scores below 42 are subject to <strong>tribunal proceedings</strong>. Dissidents face immediate sanctions. <strong>Provisional citizens</strong> hold 30-day immunity while allegiance is assessed.</div>
       </div>
     </div>
 
-    <!-- RECENT EVENTS -->
+    <!-- OPERATIONS LOG -->
     <div class="panel" style="padding:18px 20px 20px;">
-      <div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:14px;">📆 Recent Events</div>
+      <div style="font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;color:#c8a92a;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;">📋 Operations Log</div>
       <div class="events-list" id="events-list"></div>
     </div>
 
-    <!-- WEEKLY POLL -->
+    <!-- WEEKLY TRIBUNAL POLL -->
     <div class="panel vote-panel" style="overflow:visible;">
       <div class="vote-header">
-        <div class="vote-title">Weekly Poll</div>
-        <div class="vote-badge">🗳️ Vote now</div>
+        <div class="vote-title">Citizen Tribunal</div>
+        <div class="vote-badge">⚖️ Cast verdict</div>
       </div>
       <div class="vote-question" id="vote-q">—</div>
       <div class="vote-options" id="vote-opts"></div>
@@ -490,8 +533,8 @@ const MVP = {
     <!-- COUNTRY CHART -->
     <div class="panel" style="padding:18px 20px 20px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:6px;">
-        <div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:#1a1a2e;">🌍 Members by Country</div>
-        <div style="font-size:9px;font-weight:800;background:rgba(245,158,11,0.12);color:#92400e;border:1px solid rgba(245,158,11,0.3);padding:3px 8px;border-radius:8px;letter-spacing:0.04em;">⚠️ Too many Swedes detected</div>
+        <div style="font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;color:#c8a92a;letter-spacing:0.12em;text-transform:uppercase;">🌍 Citizens by Origin</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:8px;background:rgba(139,0,0,0.2);color:#884444;border:1px solid #440000;padding:3px 8px;border-radius:1px;letter-spacing:0.08em;text-transform:uppercase;">⚠ Nordic infiltration detected</div>
       </div>
       <div style="position:relative;height:180px;"><canvas id="chart-countries"></canvas></div>
       <div id="country-legend" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;"></div>
@@ -500,8 +543,8 @@ const MVP = {
     <!-- GENDER CHART -->
     <div class="panel" style="padding:18px 20px 20px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:6px;">
-        <div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:#1a1a2e;">👥 Men vs Women</div>
-        <div style="font-size:9px;font-weight:800;background:rgba(255,107,157,0.1);color:#9d1557;border:1px solid rgba(255,107,157,0.3);padding:3px 8px;border-radius:8px;letter-spacing:0.04em;">💅 Feminism is winning!</div>
+        <div style="font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;color:#c8a92a;letter-spacing:0.12em;text-transform:uppercase;">👥 Demographic Register</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:8px;background:rgba(139,0,0,0.2);color:#884444;border:1px solid #440000;padding:3px 8px;border-radius:1px;letter-spacing:0.08em;text-transform:uppercase;">Women majority — noted</div>
       </div>
       <div style="position:relative;height:160px;"><canvas id="chart-gender"></canvas></div>
       <div id="gender-legend" style="display:flex;gap:14px;margin-top:12px;justify-content:center;"></div>
@@ -514,8 +557,8 @@ const MVP = {
       <div class="ghost">👻</div>
       <div class="ghost">👻</div>
       <div class="ghost">👻</div>
-      <div class="gy-title">🪦 The Graveyard</div>
-      <div class="gy-sub">Gone and forgotten.</div>
+      <div class="gy-title">☠ The Purged</div>
+      <div class="gy-sub">Expelled. Erased. Forgotten.</div>
       <div class="gy-grid" id="gy-grid"></div>
     </div>
 
@@ -524,11 +567,11 @@ const MVP = {
   <div class="main">
     <div class="panel" style="overflow:hidden;">
       <div class="lb-header">
-        <div class="lb-title">Leaderboard</div>
+        <div class="lb-title">Loyalty Rankings</div>
         <div class="sort-btns">
-          <button class="sort-btn active" onclick="setSort('score',this)">Score</button>
-          <button class="sort-btn" onclick="setSort('eventAtt',this)">Events</button>
-          <button class="sort-btn" onclick="setSort('speed',this)">Speed</button>
+          <button class="sort-btn active" onclick="setSort('score',this)">Loyalty</button>
+          <button class="sort-btn" onclick="setSort('eventAtt',this)">Attendance</button>
+          <button class="sort-btn" onclick="setSort('speed',this)">Response</button>
         </div>
       </div>
       <div class="cards" id="cards"></div>
@@ -570,35 +613,54 @@ function renderCards(){
     if(z==='danger'&&!m.newMember)danger++;
     total+=m.score;
     if(sortBy==='score'){
-      if(!shownWarn&&z==='warn'){c.appendChild(mkDiv('warn'));shownWarn=true;}
-      if(!shownDanger&&z==='danger'){c.appendChild(mkDiv('danger'));shownDanger=true;}
+      if(!shownWarn&&z==='warn'){ c.appendChild(mkDiv('warn')); shownWarn=true; }
+      if(!shownDanger&&(z==='danger'||m.dissident)&&!shownDanger){ c.appendChild(mkDiv('danger')); shownDanger=true; }
     }
     const card=document.createElement('div');
-    const cc=z==='danger'?'danger-card':z==='warn'?'warn-card':m.you?'you-card':'';
+    const isDissident=m.dissident&&!m.newMember;
+    const isAgitator=m.agitator;
+    let cc=m.you?'you-card':isAgitator?'agitator-card':isDissident?'dissident-card':z==='danger'?'danger-card':z==='warn'?'warn-card':'';
     card.className=`card ${cc}`;card.onclick=()=>openModal(m);
     card.appendChild(mkAvatar(m.img,m.name,'avatar'));
     let tagHtml='';
-    if(m.you)tagHtml+='<span class="tag you-tag">YOU</span>';
-    if(m.newMember)tagHtml+='<span class="tag new-tag">🛡️ New</span>';
-    else if(z==='danger')tagHtml+='<span class="tag danger-tag">AT RISK</span>';
-    else if(z==='warn')tagHtml+='<span class="tag warn-tag">WATCH</span>';
-    if(m.vibes&&m.vibes[0])tagHtml+=`<span class="vibe-tag">${m.vibes[0]}</span>`;
+    if(m.you) tagHtml+='<span class="tag you-tag">KING</span>';
+    if(isAgitator) tagHtml+='<span class="agitator-tag">⚠ Main Agitator</span>';
+    else if(isDissident) tagHtml+='<span class="dissident-tag">✕ Dissident</span>';
+    if(m.newMember) tagHtml+='<span class="tag new-tag">Provisional</span>';
+    else if(!m.you&&!isDissident&&z==='danger') tagHtml+='<span class="tag danger-tag">Tribunal</span>';
+    else if(!m.you&&!isDissident&&z==='warn')   tagHtml+='<span class="tag warn-tag">Monitored</span>';
+    if(m.vibes&&m.vibes[0]) tagHtml+=`<span class="vibe-tag">${m.vibes[0]}</span>`;
     const main=document.createElement('div');main.className='card-main';
-    main.innerHTML=`<div class="card-name-row"><span class="card-name">${m.name}</span><span class="flag">${m.flag||''}</span>${tagHtml}</div><div class="mini-stats"><span class="mini-stat">📅 ${m.newMember?'N/A':m.eventAtt+'%'}</span><span class="mini-stat">⚡ ${m.respTime}</span><span class="mini-stat">👻 ${m.leftOnRead}x</span></div>`;
+    main.innerHTML=`<div class="card-name-row"><span class="card-name">${m.name}</span><span class="flag">${m.flag||''}</span>${tagHtml}</div><div class="mini-stats"><span class="mini-stat">📋 ${m.newMember?'N/A':m.eventAtt+'%'}</span><span class="mini-stat">⏱ ${m.respTime}</span><span class="mini-stat">🔇 ${m.leftOnRead}x</span></div>`;
     card.appendChild(main);
     const sc=document.createElement('div');sc.className='score-col';
-    sc.innerHTML=m.newMember?`<div class="score-num" style="font-size:16px;color:#bbb;">🔒</div><div class="score-label" style="color:#bbb;">N/A</div>`:`<div class="score-num ${scoreCls(m.score)}">${m.score}</div><div class="score-label">score</div>`;
+    sc.innerHTML=m.newMember?`<div class="score-num" style="font-size:16px;color:#444;">🔒</div><div class="score-label">pending</div>`:`<div class="score-num ${scoreCls(m.score)}">${m.score}</div><div class="score-label">loyalty</div>`;
     card.appendChild(sc);
     const bw=document.createElement('div');bw.className='score-bar-wrap';
-    bw.innerHTML=m.newMember?`<div class="score-bar" style="width:100%;background:repeating-linear-gradient(90deg,#e8e8e8 0px,#e8e8e8 6px,#f5f5f5 6px,#f5f5f5 12px);"></div>`:`<div class="score-bar" style="width:${m.score}%;background:${barCol(m.score)};"></div>`;
+    if(m.newMember){
+      bw.innerHTML=`<div class="score-bar" style="width:100%;background:repeating-linear-gradient(90deg,#e8e8e8 0px,#e8e8e8 6px,#f5f5f5 6px,#f5f5f5 12px);"></div>`;
+    } else {
+      const bar=document.createElement('div');
+      bar.className='score-bar anim';
+      bar.style.setProperty('--bar-target', m.score+'%');
+      bar.style.background=barCol(m.score);
+      bar.style.animationDelay=(0.05*i+0.3)+'s';
+      bar.style.animationDuration='0.8s';
+      bw.appendChild(bar);
+    }
     card.appendChild(bw);
     if(z==='danger'&&!m.newMember){
       if(!kickVotes[m.name])kickVotes[m.name]={yes:0,no:0,myVote:null};
       const kv=kickVotes[m.name];
       const kr=document.createElement('div');kr.className='kick-row';kr.id=`kick-${m.name}`;
-      kr.innerHTML=`<span class="kick-label">🗳 Vote to kick</span><div class="kick-btns"><button class="kick-btn kick-btn-yes" onclick="castKick('${m.name}','yes',event)">👢 Kick (${kv.yes})</button><button class="kick-btn kick-btn-no" onclick="castKick('${m.name}','no',event)">🙏 Keep (${kv.no})</button></div>`;
+      kr.innerHTML=`<span class="kick-label">⚖ Tribunal vote</span><div class="kick-btns"><button class="kick-btn kick-btn-yes" onclick="castKick('${m.name}','yes',event)">✕ Purge (${kv.yes})</button><button class="kick-btn kick-btn-no" onclick="castKick('${m.name}','no',event)">✓ Pardon (${kv.no})</button></div>`;
       card.appendChild(kr);
     }
+    // Stagger card pop-in
+    card.classList.add('anim');
+    card.style.animationDelay=(0.05*i+0.1)+'s';
+    card.style.animationDuration='0.4s';
+
     c.appendChild(card);
   });
   document.getElementById('hero-total').textContent=MEMBERS.length;
@@ -609,7 +671,7 @@ function renderCards(){
 function mkDiv(type){
   const d=document.createElement('div');d.className='zone-divider';
   const cls=type==='danger'?'div-danger':'div-warn';
-  const lbl=type==='danger'?'🚨 Danger Zone':'⚠ Watch List';
+  const lbl=type==='danger'?'✕ Dissidents & Flagged Citizens':'⚠ Under Surveillance';
   d.innerHTML=`<div class="div-line ${cls}"></div><div class="div-label ${cls}">${lbl}</div><div class="div-line ${cls}"></div>`;
   return d;
 }
@@ -673,8 +735,8 @@ function castKick(name,vote,e){
     btns[0].style.opacity='0.5';btns[1].style.opacity='0.5';
     btns[0].style.cursor='default';btns[1].style.cursor='default';
     const label=row.querySelector('.kick-label');
-    label.textContent=vote==='yes'?'🗳 You voted to kick':'🗳 You voted to keep';
-    label.style.color=vote==='yes'?'#ef4444':'#166534';
+    label.textContent=vote==='yes'?'⚖ You voted to purge':'⚖ You voted to pardon';
+    label.style.color=vote==='yes'?'#cc2222':'#336633';
   }
 }
 
@@ -685,7 +747,7 @@ function openModal(m){
   const z=zone(m.score);
   const bbg=z==='elite'?'#fef9c3':z==='safe'?'#dcfce7':z==='warn'?'#fef3c7':'#fee2e2';
   const bc=z==='elite'?'#854d0e':z==='safe'?'#166534':z==='warn'?'#92400e':'#991b1b';
-  const lbl=z==='elite'?'⭐ Elite':z==='safe'?'✅ Active':z==='warn'?'⚠️ Watch List':'🚨 Danger Zone';
+  const lbl=z==='elite'?'👑 Supreme Loyalist':z==='safe'?'✓ Compliant':z==='warn'?'⚠ Under Surveillance':'✕ Dissident';
   let tags='';
   if(m.you)tags+='<span class="tag you-tag" style="font-size:10px;padding:3px 8px;">YOU</span>';
   if(m.newMember)tags+='<span class="tag new-tag" style="font-size:10px;padding:3px 8px;">🛡️ Newly Added</span>';
@@ -700,24 +762,24 @@ function openModal(m){
         <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:5px;">
           <div class="modal-name">${m.name} ${m.flag||''}</div>${tags}
         </div>
-        <span class="modal-score-badge" style="background:${bbg};color:${bc};">${lbl} &nbsp;·&nbsp; Score: <strong>${m.newMember?'N/A':m.score}</strong></span>
+        <span class="modal-score-badge" style="background:${bbg};color:${bc};">${lbl} &nbsp;·&nbsp; Loyalty: <strong>${m.newMember?'Pending':m.score}</strong></span>
         <div class="modal-tags">${vibeHtml}</div>
       </div>
     </div>
     <div class="modal-stats">
-      <div class="modal-stat"><div class="modal-stat-val">📅 ${attVal}</div><div class="modal-stat-label">Events Attended</div></div>
-      <div class="modal-stat"><div class="modal-stat-val">⚡ ${m.respTime}</div><div class="modal-stat-label">Avg Reply Time</div></div>
-      <div class="modal-stat"><div class="modal-stat-val">👻 ${m.leftOnRead}x</div><div class="modal-stat-label">Left on Read</div></div>
+      <div class="modal-stat"><div class="modal-stat-val">📋 ${attVal}</div><div class="modal-stat-label">Rally Attendance</div></div>
+      <div class="modal-stat"><div class="modal-stat-val">⏱ ${m.respTime}</div><div class="modal-stat-label">Dispatch Response</div></div>
+      <div class="modal-stat"><div class="modal-stat-val">🔇 ${m.leftOnRead}x</div><div class="modal-stat-label">Ignored Orders</div></div>
     </div>
     <div class="modal-charts">
       <div class="chart-card">
         <div class="chart-title">Event Attendance</div>
-        <div class="chart-wrap"><canvas id="ch-att"></canvas></div>
+        <div class="chart-wrap"><canvas id="ch-att" style="display:block;height:130px;"></canvas></div>
         <div class="chart-pct" id="ch-att-pct"></div>
       </div>
       <div class="chart-card">
         <div class="chart-title">Jokes That Landed</div>
-        <div class="chart-wrap"><canvas id="ch-joke"></canvas></div>
+        <div class="chart-wrap"><canvas id="ch-joke" style="display:block;height:130px;"></canvas></div>
         <div class="chart-pct" id="ch-joke-pct"></div>
       </div>
     </div>
@@ -729,9 +791,16 @@ function openModal(m){
   setTimeout(()=>{
     function mkDonut(id,val,color){
       const el=document.getElementById(id);if(!el)return null;
+      const sz=130;
+      el.width=sz;
+      el.height=sz;
+      el.style.width=sz+'px';
+      el.style.height=sz+'px';
+      el.style.display='block';
+      el.style.margin='0 auto';
       return new Chart(el,{type:'doughnut',
         data:{datasets:[{data:[val,100-val],backgroundColor:[color,'#ede9fe'],borderWidth:0,hoverOffset:4}]},
-        options:{responsive:true,maintainAspectRatio:false,cutout:'62%',layout:{padding:6},
+        options:{responsive:false,maintainAspectRatio:false,cutout:'62%',layout:{padding:4},
           plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.dataIndex===0?val+'%':(100-val)+'%'}`}}}}
       });
     }
@@ -749,7 +818,7 @@ function overlayClick(e){if(e.target===document.getElementById('modal-overlay'))
 /* ── MVP ── */
 function renderMVP(){
   document.getElementById('mvp-card').innerHTML=`
-    <div class="mvp-header"><span style="font-size:14px;">👑</span><span class="mvp-label">MVP of the Week</span><span class="mvp-week">· ${MVP.week}</span></div>
+    <div class="mvp-header"><img src="images/dan.png" style="width:20px;height:20px;border-radius:50%;border:1px solid #c8a92a;object-fit:cover;" onerror="this.style.display='none'"><span class="mvp-label">Loyal Citizen Decree</span><span class="mvp-week">· ${MVP.week}</span></div>
     <div class="mvp-body">
       <img src="${MVP.img}" class="mvp-avatar" alt="${MVP.name}" onerror="this.outerHTML='<div class=\\'mvp-avatar-fallback\\'>${MVP.name[0]}</div>'">
       <div><div class="mvp-name">${MVP.name} ${MVP.flag}</div><div class="mvp-reason">${MVP.reason}</div><div class="mvp-stats">${MVP.stats.map(s=>`<span class="mvp-stat">${s}</span>`).join('')}</div></div>
@@ -762,13 +831,13 @@ function renderStats(){
   MEMBERS.forEach(m=>{const k=m.flag||'🏳️';counts[k]=(counts[k]||0)+1;});
   const labels=Object.keys(counts),data=labels.map(k=>counts[k]);
   const palette=['#a855f7','#ff6b9d','#3b82f6','#22c55e','#f59e0b','#ef4444','#14b8a6','#8b5cf6','#f97316','#06b6d4','#84cc16'];
-  new Chart(document.getElementById('chart-countries'),{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:palette.slice(0,labels.length),borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.raw} member${ctx.raw>1?'s':''}`}}}}});
+  new Chart(document.getElementById('chart-countries'),{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:palette.slice(0,labels.length),borderWidth:2,borderColor:'#0d0d0d'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.raw} member${ctx.raw>1?'s':''}`}}}}});
   const legend=document.getElementById('country-legend');
   labels.forEach((flag,i)=>{const item=document.createElement('div');item.style.cssText='display:flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#555;';item.innerHTML=`<span style="width:8px;height:8px;border-radius:2px;background:${palette[i]};flex-shrink:0;display:inline-block;"></span>${flag} ${counts[flag]}`;legend.appendChild(item);});
   const men=MEMBERS.filter(m=>m.gender==='m').length,women=MEMBERS.filter(m=>m.gender==='f').length;
-  new Chart(document.getElementById('chart-gender'),{type:'doughnut',data:{labels:['Men','Women'],datasets:[{data:[men,women],backgroundColor:['#3b82f6','#ff6b9d'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.raw}`}}}}});
+  new Chart(document.getElementById('chart-gender'),{type:'doughnut',data:{labels:['Male','Female'],datasets:[{data:[men,women],backgroundColor:['#c8a92a','#662222'],borderWidth:2,borderColor:'#0d0d0d'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.raw}`}}}}});
   const gLegend=document.getElementById('gender-legend');
-  [['Men',men,'#3b82f6'],['Women',women,'#ff6b9d']].forEach(([label,count,color])=>{const item=document.createElement('div');item.style.cssText='display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#555;';item.innerHTML=`<span style="width:10px;height:10px;border-radius:2px;background:${color};display:inline-block;"></span>${label}: ${count}`;gLegend.appendChild(item);});
+  [['Male',men,'#c8a92a'],['Female',women,'#884444']].forEach(([label,count,color])=>{const item=document.createElement('div');item.style.cssText='display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#555;';item.innerHTML=`<span style="width:10px;height:10px;border-radius:2px;background:${color};display:inline-block;"></span>${label}: ${count}`;gLegend.appendChild(item);});
 }
 
 /* ── Popups ── */
@@ -781,7 +850,7 @@ function dismissAllPopups(){document.querySelectorAll('.secret-popup').forEach(p
 function applySecret(){
   const me=MEMBERS.find(m=>m.you);
   if(me){me.score=Math.min(100,me.score+15);renderCards();if(zone(me.score)!=='danger'){document.body.classList.remove('danger-user');document.getElementById('danger-badge').style.display='none';}}
-  document.getElementById('secret-popup').innerHTML=`<div class="secret-banner" style="justify-content:center;"><div class="secret-banner-label" style="gap:6px;font-size:10px;">✓ payment received — boost applied!</div></div><div class="secret-inner" style="text-align:center;padding:16px;"><div style="font-size:32px;margin-bottom:8px;">🚀</div><div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;color:#1a1a2e;margin-bottom:4px;">You're looking great, ${currentUser||'friend'}.</div><div style="font-size:11px;color:#888;font-weight:600;">Score updated. Enjoy the view from the top.</div></div>`;
+  document.getElementById('secret-popup').innerHTML=`<div class="secret-banner" style="justify-content:center;"><div class="secret-banner-label" style="gap:6px;font-size:10px;">✓ transaction processed</div></div><div class="secret-inner" style="text-align:center;padding:16px;"><img src="images/dan.png" style="width:48px;height:48px;border-radius:50%;border:2px solid #c8a92a;object-fit:cover;margin:0 auto 10px;display:block;" onerror="this.style.display='none'"><div style="font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;color:#c8a92a;letter-spacing:0.08em;margin-bottom:4px;text-transform:uppercase;">Long live ${currentUser||'the Regime'}.</div><div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#444;">Loyalty score updated. The Regime thanks you.</div></div>`;
   setTimeout(dismissSecret,2500);
 }
 function submitParty(){document.getElementById('party-form').style.display='none';document.getElementById('party-thanks').style.display='block';setTimeout(()=>dismissPopup('party-popup'),2800);}
@@ -803,23 +872,58 @@ function selectUser(name){
   currentUser=name;
   document.querySelectorAll('.member-tile').forEach(t=>t.classList.remove('selected'));
   document.getElementById(`tile-${name}`).classList.add('selected');
-  const btn=document.getElementById('welcome-btn');btn.classList.add('ready');btn.textContent=`I'm ${name} →`;
+  const btn=document.getElementById('welcome-btn');btn.classList.add('ready');
+  btn.textContent=`Access ${name}'s dossier →`;
 }
 function enterApp(){
   if(!currentUser)return;
   MEMBERS.forEach(m=>{m.you=(m.name===currentUser);});
   document.getElementById('welcome-screen').classList.add('hidden');
   setTimeout(()=>{document.getElementById('welcome-screen').style.display='none';},520);
+
   renderCards();renderEvents();renderGraveyard();renderPoll();renderMVP();renderStats();
+
   const me=MEMBERS.find(m=>m.name===currentUser);
   if(me&&zone(me.score)==='danger'&&!me.newMember){document.body.classList.add('danger-user');document.getElementById('danger-badge').style.display='flex';}
-  document.querySelector('.secret-offer-title').textContent='Boost Your Score';
-  document.querySelector('.secret-offer-sub').textContent=`Limited time offer for ${currentUser}`;
+  document.querySelector('.secret-offer-title').textContent='Loyalty Score Adjustment';
+  document.querySelector('.secret-offer-sub').textContent=`Confidential offer for citizen: ${currentUser}`;
+
+  // Trigger entry animations
+  requestAnimationFrame(()=>{
+    document.querySelector('.sidebar').classList.add('animate');
+    document.querySelector('.main').classList.add('animate');
+
+    // Count up hero stats
+    const totalEl=document.getElementById('hero-total');
+    const dangerEl=document.getElementById('hero-danger');
+    const avgEl=document.getElementById('hero-avg');
+    const targetTotal=parseInt(totalEl.textContent);
+    const targetDanger=parseInt(dangerEl.textContent);
+    const targetAvg=parseInt(avgEl.textContent);
+    countUp(totalEl,0,targetTotal,600,0.15);
+    countUp(dangerEl,0,targetDanger,700,0.3);
+    countUp(avgEl,0,targetAvg,900,0.5);
+  });
+
   requestAnimationFrame(()=>{requestAnimationFrame(()=>{
     setTimeout(()=>{if(!secretDismissed)showPopup('secret-popup');},20000);
     setTimeout(()=>showPopup('music-popup'),35000);
     setTimeout(()=>showPopup('party-popup'),55000);
   });});
+}
+
+function countUp(el, from, to, duration, delay){
+  if(isNaN(to)) return;
+  setTimeout(()=>{
+    const start=performance.now();
+    function tick(now){
+      const t=Math.min((now-start)/duration,1);
+      const ease=1-Math.pow(1-t,3);
+      el.textContent=Math.round(from+(to-from)*ease);
+      if(t<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }, delay*1000);
 }
 renderWelcome();
 </script>
@@ -830,72 +934,78 @@ renderWelcome();
 <!-- SWISH POPUP -->
 <div class="secret-popup" id="secret-popup">
   <div class="secret-banner">
-    <div class="secret-banner-label"><div class="secret-banner-dot"></div> fwens premium</div>
+    <div class="secret-banner-label"><div class="secret-banner-dot"></div> Regime Enhancement Office</div>
     <button class="secret-close" onclick="dismissSecret()">✕</button>
   </div>
   <div class="secret-inner">
     <div class="secret-offer-row">
-      <div class="secret-offer-icon">⭐</div>
-      <div><div class="secret-offer-title">Boost Your Score</div><div class="secret-offer-sub">Limited time offer</div></div>
+      <div class="secret-offer-icon">📜</div>
+      <div><div class="secret-offer-title">Loyalty Score Adjustment</div><div class="secret-offer-sub">Confidential offer — not logged</div></div>
     </div>
     <div class="secret-price-row">
-      <div class="secret-price-left">Instant <strong>+15 point</strong> score boost.<br>Applied immediately, no questions asked.</div>
+      <div class="secret-price-left">Instant <strong>+15 loyalty</strong> score adjustment.<br>Applied immediately. No questions asked.</div>
       <div><div class="secret-price">100 kr</div><span>one-time</span></div>
     </div>
     <div class="secret-actions">
-      <button class="secret-btn secret-btn-yes" onclick="applySecret()">Swish now 🚀</button>
-      <button class="secret-btn secret-btn-no" onclick="dismissSecret()">No thanks</button>
+      <button class="secret-btn secret-btn-yes" onclick="applySecret()">Swish the Regime 🚀</button>
+      <button class="secret-btn secret-btn-no" onclick="dismissSecret()">Decline</button>
     </div>
-    <div class="secret-fine-print">By tapping "Swish now" you agree to our Score Enhancement Terms. Boosts are non-refundable. Fwens Analytics AB · Stockholm</div>
+    <div class="secret-fine-print">By proceeding you acknowledge this transaction. Non-refundable. Regime Enhancement Office AB · Stockholm</div>
   </div>
 </div>
 
 <!-- MUSIC POPUP -->
 <div class="secret-popup" id="music-popup">
-  <div class="secret-banner" style="background:linear-gradient(135deg,#fc3c44,#af2d55);">
-    <div class="secret-banner-label"><div class="secret-banner-dot"></div> New music alert 🎵</div>
-    <button class="secret-close" onclick="dismissPopup('music-popup')">✕</button>
+  <div class="secret-banner" style="background:#0d0000;border-bottom:1px solid #660000;">
+    <div class="secret-banner-label"><div class="secret-banner-dot" style="background:#aa2222;"></div> Ministry of Culture</div>
+    <button class="secret-close" style="border-color:#660000;color:#882222;" onclick="dismissPopup('music-popup')">✕</button>
   </div>
   <div class="secret-inner">
     <div class="secret-offer-row">
-      <div class="secret-offer-icon" style="background:linear-gradient(135deg,#ffe4e8,#ffc2cc);">🎸</div>
-      <div><div class="secret-offer-title">David dropped new music!</div><div class="secret-offer-sub">Penguin Shoot Gun · on Apple Music</div></div>
+      <div class="secret-offer-icon" style="background:#0d0000;border:1px solid #330000;">🎸</div>
+      <div>
+        <div class="secret-offer-title" style="color:#cc6666;">David — Cultural Dispatch</div>
+        <div class="secret-offer-sub">Penguin Shoot Gun · Apple Music · Unapproved content</div>
+      </div>
     </div>
-    <div style="font-size:12px;color:#555;font-weight:600;margin-bottom:12px;line-height:1.5;">Give it a listen and show some support. He's been working hard on this 🙌</div>
+    <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#444;margin-bottom:12px;line-height:1.6;">Despite his dissident file, the Ministry recommends citizens assess this material and report any seditious content.</div>
     <div class="secret-actions">
       <a href="https://music.apple.com/nz/artist/penguin-shoot-gun/1707389046" target="_blank" style="text-decoration:none;flex:1;">
-        <button class="secret-btn secret-btn-yes" style="width:100%;background:linear-gradient(135deg,#fc3c44,#af2d55);">Listen now 🎧</button>
+        <button class="secret-btn" style="width:100%;background:#200000;color:#aa4444;border:1px solid #440000;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;">Listen &amp; assess →</button>
       </a>
-      <button class="secret-btn secret-btn-no" onclick="dismissPopup('music-popup')">Later</button>
+      <button class="secret-btn secret-btn-no" onclick="dismissPopup('music-popup')">Dismiss</button>
     </div>
-    <div class="secret-fine-print">Opens Apple Music in a new tab</div>
+    <div class="secret-fine-print">Cultural Assessment Division · Regime Ministry of Culture</div>
   </div>
 </div>
 
 <!-- PARTY POPUP -->
 <div class="secret-popup" id="party-popup">
-  <div class="secret-banner" style="background:linear-gradient(135deg,#f59e0b,#d97706);">
-    <div class="secret-banner-label"><div class="secret-banner-dot"></div> Event invite 🎉</div>
+  <div class="secret-banner" style="background:#0d0900;border-bottom:1px solid #c8a92a;">
+    <div class="secret-banner-label"><div class="secret-banner-dot"></div> Mandatory Assembly Notice</div>
     <button class="secret-close" onclick="dismissPopup('party-popup')">✕</button>
   </div>
   <div class="secret-inner">
     <div class="secret-offer-row">
-      <div class="secret-offer-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">🥂</div>
-      <div><div class="secret-offer-title">Presentation Party!</div><div class="secret-offer-sub">Register your interest below</div></div>
+      <div class="secret-offer-icon" style="background:#0d0900;border:1px solid #3a2a00;">📣</div>
+      <div>
+        <div class="secret-offer-title">Presentation Ceremony</div>
+        <div class="secret-offer-sub">Attendance is not optional</div>
+      </div>
     </div>
-    <div style="font-size:12px;color:#555;font-weight:600;margin-bottom:12px;line-height:1.5;">We're planning a presentation party and want to know who's in. Tap below to be notified when the date is confirmed 📅</div>
+    <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#555;margin-bottom:12px;line-height:1.6;">The Regime is staging a Presentation Ceremony. Register your compliance below. Failure to attend will be noted in your file.</div>
     <div id="party-form">
       <div class="secret-actions">
-        <button class="secret-btn secret-btn-yes" style="background:linear-gradient(135deg,#f59e0b,#d97706);" onclick="submitParty()">I'm interested! 🙋</button>
-        <button class="secret-btn secret-btn-no" onclick="dismissPopup('party-popup')">Not for me</button>
+        <button class="secret-btn secret-btn-yes" onclick="submitParty()">I will attend 🫡</button>
+        <button class="secret-btn secret-btn-no" onclick="dismissPopup('party-popup')">I am unwell</button>
       </div>
     </div>
     <div id="party-thanks" style="display:none;text-align:center;padding:8px 0;">
-      <div style="font-size:24px;margin-bottom:6px;">🎉</div>
-      <div style="font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#1a1a2e;">You're on the list!</div>
-      <div style="font-size:11px;color:#888;margin-top:3px;">We'll be in touch when the date is set.</div>
+      <div style="font-size:24px;margin-bottom:6px;">🫡</div>
+      <div style="font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;color:#c8a92a;letter-spacing:0.08em;text-transform:uppercase;">Compliance recorded</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#444;margin-top:4px;">You will be notified of the date. Non-attendance will be logged.</div>
     </div>
-    <div class="secret-fine-print" style="color:#ef4444;font-weight:800;letter-spacing:0.04em;">⚠️ ATTENDANCE IS MANDATORY</div>
+    <div style="font-family:'Share Tech Mono',monospace;font-size:8px;color:#aa2222;text-align:center;margin-top:9px;letter-spacing:0.08em;text-transform:uppercase;">⚠ Attendance is mandatory — absence is treason</div>
   </div>
 </div>
 
